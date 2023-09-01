@@ -1,0 +1,14 @@
+<div class="main-container">
+  <div class='file file--upload'>
+    <label for='input-file'>
+      <span>PROCURAR VIDEO</span>
+    </label>
+    <input id="input-file" type="file" accept="video/*" (change)="onSelectedFile($event)">
+  </div>
+  
+  <video 
+    *ngIf="prev_url" 
+    [src]="prev_url" 
+    style="width:90%" 
+    controls></video>
+</div>

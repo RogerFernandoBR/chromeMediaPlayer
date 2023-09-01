@@ -1,0 +1,40 @@
+
+@import url('https://fonts.cdnfonts.com/css/roboto');
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .file {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: roboto;
+        margin-bottom: 50px;
+        margin-top: 50px;
+    
+        label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            background-color: #8948f1;
+            border-radius: 14px;
+            font-size: 24px;
+            letter-spacing: 9px;
+            cursor: pointer;
+            background-image: url(../assets/img/background.png);
+            background-size: cover;
+            background-size: 388px;
+            background-position: center;
+        }
+    
+        #input-file {
+            visibility: hidden;
+            width: 0px;
+            height: 0px;
+        }
+    }
+}
