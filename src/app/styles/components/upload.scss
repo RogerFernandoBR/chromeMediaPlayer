@@ -1,20 +1,25 @@
-.upload-container {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-weight: 100;
-    border: 1px dashed gray;
-    background-color: #242735;
-    cursor: pointer;
+@mixin theme-upload($theme, $v50, $v100, $v200, $v300, $v400, $v500) {
+    .#{$theme} {
+        .upload-container {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-weight: 300;
+            border: 1px dashed $v50;
+            background-color: $v100;
+            color: $v500;
+            cursor: pointer;
 
-    &:hover {
-        background-color: #24273591;
-    }
+            &:hover {
+                background-color: $v200;
+            }
 
-    img {
-        width: 100%;
+            img {
+                width: 100%;
+            }
+        }
     }
 }

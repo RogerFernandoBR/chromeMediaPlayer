@@ -39,6 +39,7 @@ $themes: (
     // INCLUIR TODOS OS MIXINS DE CADA COMPONENTE;
     @include theme-aside($class, $v50, $v100, $v200, $v300, $v400, $v500);
     @include theme-grid($class, $v50, $v100, $v200, $v300, $v400, $v500);
+    @include theme-upload($class, $v50, $v100, $v200, $v300, $v400, $v500);
    
 }
 
