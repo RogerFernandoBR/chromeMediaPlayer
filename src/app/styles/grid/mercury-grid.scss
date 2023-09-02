@@ -1,0 +1,64 @@
+@mixin theme-grid($theme, $v50, $v100, $v200, $v300, $v400, $v500) {
+    .#{$theme} {
+        background-color: $v50;
+        color: $v500;
+        
+        &.grid-mercury {
+            display: grid;
+            grid-template-columns: 300px auto;
+            grid-template-rows: 70px calc(100vh - 70px);
+            transition: 300ms;
+
+            .grid-item {
+                
+                &.aside {
+                    grid-column: 1 / 2;
+                    grid-row: 1 / 4;
+                    height: 100vh;
+                    display: flex;
+                    z-index: 999;
+                    -webkit-box-shadow: v100;
+                    -moz-box-shadow: v100;
+                    box-shadow: v100;
+                    -webkit-box-shadow: 8px 0px 11px -7px #000000;
+                    -moz-box-shadow: 8px 0px 11px -7px #000000;
+                    box-shadow: 8px 0px 11px -7px #000000;
+                }
+
+                &.navbar {
+                    grid-column: 2 / 4;
+                    grid-row: 1 / 2;
+                    padding: 16px;
+                    border-bottom: 1px solid #c56534;
+                }
+
+                &.content {
+                    grid-column: 2/4;
+                    grid-row: 2/4;
+                    padding: 16px;
+                }
+            }
+
+            &.hide-aside {
+                grid-template-columns: 0px auto;
+                transition: 300ms;
+            }
+        }
+    }
+}
+
+// Mobile < 700px
+@media (max-width: 700px) {
+    .grid-mercury {
+        grid-template-columns: 0px auto !important;
+        grid-template-rows: 70px calc(100vh - 70px) !important;
+        transition: 300ms;
+
+        .grid-item {
+            &.aside{
+                position: absolute;	
+                transition: 300ms;
+            }
+        }
+    }
+}

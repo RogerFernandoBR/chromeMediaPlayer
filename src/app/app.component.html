@@ -1,17 +1,5 @@
-<div class="main-container">
-  <div class='file file--upload'>
-    <img src="../assets/img/19197185.png" alt="">
-    <label for='input-file'>
-      <span>PROCURAR VIDEO</span>
-    </label>
-    <input id="input-file" type="file" accept="video/*" (change)="onSelectedFile($event)">
-  </div>
-
-  <div class="player file-player">
-    <video 
-      *ngIf="prev_url" 
-      [src]="prev_url" 
-      style="width:100%" 
-      controls></video>
-  </div>
+<div class="grid-mercury" [ngClass]="{'hide-aside' : hideAside, 'theme-dark' : useDarkMode, 'theme-light' : !useDarkMode}" (window:resize)="onResize()">
+    <app-aside class="grid-item aside"></app-aside>
+    <app-navbar class="grid-item navbar"></app-navbar>
+    <app-content class="grid-item content"></app-content>
 </div>

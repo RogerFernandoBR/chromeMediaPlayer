@@ -1,0 +1,15 @@
+export enum RoutePages {
+    Root = '',
+    Home = 'home',
+    PageNotFound = 'pageNotFound',
+    About = 'about',
+    SoftSkills = 'softSkills',
+    HardSkills = 'hardSkills',
+    Weather = 'weather',
+    TicTacToe = 'ticTacToe',
+    Clock = 'clock',
+    Modeling = 'modeling',
+    Cronometer = 'cronometer',
+    Calculator = 'calculator',
+    ToDo = 'toDo',
+}

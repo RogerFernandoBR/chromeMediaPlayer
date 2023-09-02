@@ -1,22 +1,43 @@
-import { Component, ElementRef } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, HostListener } from '@angular/core';
+import { LayoutService } from './services/layout.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
+@HostListener('window:resize', ['$event'])
+
 export class AppComponent {
-  title = 'chromeMediaPlayer';
-  prev_url : any;
+  title = 'portalPortifolio';
+  hideAside: boolean = true;
+  viewPortWidth: number = window.innerWidth;
+  useDarkMode: boolean = true;
 
-  constructor(
-    private sanitizer : DomSanitizer
-  ) {}
+  constructor(private layoutService: LayoutService) {
+    this.layoutService.toggleAsideLeft.subscribe((x) => {
+      this.hideAside = x;
+    });
 
-  onSelectedFile(ev : any) {
-    let file = ev.target.files[0];
-    var URL = window.URL;
-    this.prev_url = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file));
+    this.layoutService.useDarkMode.subscribe((x) => {
+      this.useDarkMode = x;
+      let body = document.getElementsByTagName("body")[0];
+      body.classList.remove("theme-dark");
+      body.classList.remove("theme-light");
+      if (x) body.classList.add("theme-dark");
+      else body.classList.add("theme-light");
+    })
+  }
+
+  ngOnInit() {
+    this.onResize();
+
+    
+  }
+
+  onResize() {
+    this.layoutService.checkViewPortWidth();
+
   }
 }

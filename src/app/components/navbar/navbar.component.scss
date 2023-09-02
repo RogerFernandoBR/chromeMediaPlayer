@@ -1,0 +1,49 @@
+.container-navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+
+    .left-navbar {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+
+        .icon-container {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            cursor: pointer;
+
+            .horizontal-bar {
+                background-color: white;
+                width: 25px;
+                height: 3px;
+                margin: 3.7px;
+            }
+
+            &:hover {
+                background-color: #393939;
+                border-radius: 100%;
+            }
+        }
+    }
+
+    .right-navbar {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+
+        app-button-mode {
+            display: flex;
+            right: 0px
+            
+        }
+    }
+}

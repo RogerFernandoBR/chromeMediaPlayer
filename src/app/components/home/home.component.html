@@ -1,0 +1,15 @@
+<div class="main-container">  
+    <div class="player file-player">
+      <video 
+        [src]="prev_url" 
+        style="width:100%" 
+        controls></video>
+    </div>
+
+    <div class='file file--upload'>
+        <label for='input-file'>
+            <app-upload for='input-file'></app-upload>
+        </label>
+        <input id="input-file" type="file" accept="video/*" (change)="onSelectedFile($event)">
+    </div>
+</div>

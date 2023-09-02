@@ -1,0 +1,45 @@
+@import "../grid/grid-all.scss";
+@import "../components/components-all";
+
+$themes: (
+  theme-light: (
+    v50 : #ffffff,
+    v100 : #e9e8e8,
+    v200 : #9f9f9f,
+    v300 : #6f6f6f,
+    v400 : #3f3f3f,
+    v500 : #0f0f0f,
+  ),
+  theme-dark: (    
+    v50 : #0f0f0f,
+    v100 : #222222,
+    v200 : #3f3f3f,
+    v300 : #9f9f9f,
+    v400 :#cfcfcf,
+    v500 :#ffffff,
+  )
+);
+
+@function map-deep-get($map, $keys...) {
+    $value: $map;
+    @each $key in $keys {
+        $value: map-get($value, $key);
+    }
+    @return $value;
+}
+
+@each $class in map-keys($themes) {
+    $v50 : map-deep-get($themes, $class, v50);
+    $v100 : map-deep-get($themes, $class, v100);
+    $v200 : map-deep-get($themes, $class, v200);
+    $v300 : map-deep-get($themes, $class, v300);
+    $v400 : map-deep-get($themes, $class, v400);
+    $v500 : map-deep-get($themes, $class, v500);
+
+    // INCLUIR TODOS OS MIXINS DE CADA COMPONENTE;
+    @include theme-aside($class, $v50, $v100, $v200, $v300, $v400, $v500);
+    @include theme-grid($class, $v50, $v100, $v200, $v300, $v400, $v500);
+   
+}
+
+

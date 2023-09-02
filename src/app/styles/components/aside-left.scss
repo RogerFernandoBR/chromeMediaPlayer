@@ -1,0 +1,307 @@
+@mixin theme-aside($theme, $v50, $v100, $v200, $v300, $v400, $v500) {
+    .#{$theme} {
+        .aside {
+            .aside-container {
+                padding: 16px;
+                width: calc(100% - 32px);
+                max-width: 300px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-color: $v50;
+                transition: 300ms;
+
+                .header-aside {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    .btn {
+                        position: absolute;
+                        width: 24px;
+                        height: 24px;
+                        top: 0;
+                        left: 0px;
+                        cursor: pointer;
+                    }
+
+                    .btn-left {
+                        background-color: $v300;
+                        position: absolute;
+                        height: 4px;
+                        width: 12px;
+                        top: 0px;
+                        left: 0px;
+                        -webkit-transition-duration: 0.5s;
+                        transition-duration: 0.5s;
+                    }
+
+                    .btn-left:before {
+                        background-color: $v300;
+                        position: absolute;
+                        width: 12px;
+                        height: 4px;
+                        content: "";
+                        top: -12px;
+                        -webkit-transition-duration: 0.5s;
+                        transition-duration: 0.5s;
+                    }
+
+                    .btn-left:after {
+                        background-color: $v300;
+                        position: absolute;
+                        width: 12px;
+                        height: 4px;
+                        content: "";
+                        top: 12px;
+                        -webkit-transition-duration: 0.5s;
+                        transition-duration: 0.5s;
+                    }
+                      
+                    .btn-right {
+                        background-color: $v300;
+                        position: absolute;
+                        height: 4px;
+                        width: 12px;
+                        top: 0px;
+                        left: 12px;
+                        -webkit-transition-duration: 0.5s;
+                        transition-duration: 0.5s;
+                    }
+
+                    .btn-right:before {
+                        background-color: $v300;
+                        position: absolute;
+                        width: 12px;
+                        height: 4px;
+                        content: "";
+                        top: -12px;
+                        -webkit-transition-duration: 0.5s;
+                        transition-duration: 0.5s;
+                    }
+
+                    .btn-right:after {
+                        background-color: $v300;
+                        position: absolute;
+                        width: 12px;
+                        height: 4px;
+                        content: "";
+                        top: 12px;
+                        -webkit-transition-duration: 0.5s;
+                        transition-duration: 0.5s;
+                    }
+                      
+                    .active .btn-left {
+                        -webkit-transition-duration: 0.5s;
+                        transition-duration: 0.5s;
+                        background: transparent;
+                    }
+
+                    .active .btn-left:before {
+                        -webkit-transform: rotateZ(45deg) scaleX(1.4) translate(4px, 4px);
+                        transform: rotateZ(45deg) scaleX(1.4) translate(4px, 4px);
+                    }
+
+                    .active .btn-left:after {
+                        -webkit-transform: rotateZ(-45deg) scaleX(1.4) translate(4px, -4px);
+                        transform: rotateZ(-45deg) scaleX(1.4) translate(4px, -4px);
+                    }
+
+                    .active .btn-right {
+                        -webkit-transition-duration: 0.5s;
+                        transition-duration: 0.5s;
+                        background: transparent;
+                    }
+
+                    .active .btn-right:before {
+                        -webkit-transform: rotateZ(-45deg) scaleX(1.4) translate(-4px, 4px);
+                        transform: rotateZ(-45deg) scaleX(1.4) translate(-4px, 4px);
+                    }
+
+                    .active .btn-right:after {
+                        -webkit-transform: rotateZ(45deg) scaleX(1.4) translate(-4px, -4px);
+                        transform: rotateZ(45deg) scaleX(1.4) translate(-4px, -4px);
+                    }
+                           
+                    .line {
+                        font-weight: 300 ;
+                        font-size: 1.4rem;
+                        text-align: center;
+                        margin: 0;
+                        border-bottom: 1px solid $primary;
+                        padding: 16px 0;
+                        margin-bottom: 16px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        width: calc(300px - 32px);
+                    }
+                }
+                
+                .aside-btn-list {
+                    display: flex;
+                    flex-direction: column;
+                    overflow-y: auto;
+                    overflow-x: hidden;
+                    width: 100%;
+                    padding: 0 6px 0px 16px;
+                    margin-right: 4px;
+
+            
+                    .aside-btn {
+                        border-radius: 0px 8px 8px 0px;
+                        padding: 0 16px;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        height: 52px;
+                        min-height: 52px;
+            
+                        i {
+                            margin-right: 16px;
+                        }
+            
+                        &:hover, &.selected {
+                            background-color: $medium;
+                        }
+                    }
+
+                    .collapse {
+                        .description {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: flex-start;
+                            margin-left: 16px;
+
+                            .vertical-bar {
+                                width: 5px;
+                                height: 133px;
+                                background-color: $dark;
+                            }
+
+                            .container-btn {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                width: 100%;
+
+                                .container-btn-item {
+                                    display: flex;
+                                    flex-direction: row;
+                                    justify-content: flex-start;
+                                    align-items: center;
+                                    width: 100%;
+
+                                    .horizontal-bar {
+                                        height: 5px;
+                                        width: 10px;
+                                        background-color: $dark;
+                                    }
+
+                                    .aside-btn {
+                                        width: 100%;
+
+                                        &:hover, &.selected {
+                                            background-color: $dark;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    details {
+                        summary {
+                            list-style: none;
+                        }
+                    }
+                }
+            
+                &.hide-aside {
+                    position: absolute;
+                    left: -332px;
+                    transition: 300ms;   
+
+                    .container-btn-close {
+                        position: absolute;
+                        top: 28px;
+                        left: 348px; 
+                    }
+                }
+
+                &:not(.hide-aside) {
+                    .container-btn-close {
+                        position: absolute;
+                        top: 28px;
+                        left: 260px;
+                    }
+                }
+
+                @media only screen and (max-width: 700px) {
+                    &:not(.hide-aside) {
+                        position: absolute;
+                        padding: 16px;
+                        width: 268px;
+                        max-width: 300px;
+                        left: 0px;
+                        transition: 300ms;
+                        height: calc(100vh - 32px);     
+                        overflow: hidden;                        
+                        -webkit-box-shadow: 8px 0px 11px -7px #000000;
+                        -moz-box-shadow: 8px 0px 11px -7px #000000;
+                        box-shadow: 8px 0px 11px -7px #000000;
+
+                        .aside-btn-list { 
+                            overflow-y: auto;
+                            overflow-x: hidden;                       
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .theme-light {
+        .aside {
+            .aside-container {
+                .header-aside {
+                }
+
+                .aside-btn-list {
+                    .aside-btn {
+                        &:hover, &.selected {
+                            background-color: $primary !important;
+                            color: $white !important;
+                        }
+                    }
+
+                    .collapse {
+                        .description {
+                            .vertical-bar {
+                                background-color: $secondary;
+                            }
+
+                            .container-btn {
+                                .container-btn-item {
+                                    .horizontal-bar {
+                                        background-color: $secondary;
+                                    }
+
+                                    .aside-btn {
+                                        &:hover, &.selected {
+                                            background-color: $secondary !important;
+                                            color: $darker !important;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }    
+}

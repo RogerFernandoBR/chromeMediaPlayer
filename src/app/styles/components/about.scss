@@ -1,0 +1,42 @@
+.container-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .first-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        margin-bottom: 100px;
+        margin-top: 50px;
+        border-bottom: 2px solid $primary;
+
+        .avatar-container {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .title-container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            width: 300px;
+            height: 300px;
+            margin-right: -100px;
+
+            .text-primary {
+                color: $primary;
+                font-weight: 400;
+                margin-bottom: 0px;
+            }
+            
+            .text-hight-contrast {
+                margin-top: 0px;
+                font-weight: 400;
+            }
+        }
+    }
+}
