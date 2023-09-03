@@ -8,11 +8,12 @@ import { AsideComponent } from './components/aside/aside.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ContentComponent } from './components/content/content.component';
 import { ButtonModeComponent } from './components/button-mode/button-mode.component';
-import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
-import { SoftSkillsComponent } from './components/soft-skills/soft-skills.component';
-import { HardSkillsComponent } from './components/hard-skills/hard-skills.component';
 import { UploadComponent } from './components/upload/upload.component';
+import { ImagesComponent } from './components/images/images.component';
+import { AudioComponent } from './components/audio/audio.component';
+import { VideoComponent } from './components/video/video.component';
+import { VideoEditComponent } from './components/video-edit/video-edit.component';
+import { VideoConverterComponent } from './components/video-converter/video-converter.component';
 
 @NgModule({
   declarations: [
@@ -21,11 +22,12 @@ import { UploadComponent } from './components/upload/upload.component';
     NavbarComponent,
     ContentComponent,
     ButtonModeComponent,
-    HomeComponent,
-    AboutComponent,
-    SoftSkillsComponent,
-    HardSkillsComponent,
     UploadComponent,
+    ImagesComponent,
+    AudioComponent,
+    VideoComponent,
+    VideoEditComponent,
+    VideoConverterComponent,
   ],
   imports: [
     BrowserModule,

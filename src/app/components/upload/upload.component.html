@@ -1,4 +1,5 @@
 <div class="upload-container">
-    <img src="../../../assets/img/video.png" alt="">
+    <img *ngIf="useDarkMode" src="../../../assets/img/video-dark.png" alt="">
+    <img *ngIf="!useDarkMode" src="../../../assets/img/video-light.png" alt="">
     <span>Arraste sua midia aqui ou clique para procurar!</span>
 </div>

@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-video',
+  templateUrl: './video.component.html',
+  styleUrls: ['./video.component.scss']
 })
-export class HomeComponent {
+export class VideoComponent {
   prev_url : any;
 
   constructor(

@@ -8,10 +8,15 @@ import { LayoutService } from 'src/app/services/layout.service';
 })
 export class AsideComponent {
   hideAside: boolean = true;
+  useDarkMode: boolean = true;
 
   constructor(private layoutService: LayoutService) {
     this.layoutService.toggleAsideLeft.subscribe((x) => {
       this.hideAside = x;
+    })
+
+    this.layoutService.useDarkMode.subscribe((x) => {
+      this.useDarkMode = x;
     })
   }
 
