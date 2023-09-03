@@ -1,5 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { LayoutService } from 'src/app/services/layout.service';
+import { RoutePagesEnum } from 'src/app/enums/_enums';
+import { RouterService } from 'src/app/services/router.service';
+import { NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-aside',
@@ -7,10 +10,12 @@ import { LayoutService } from 'src/app/services/layout.service';
   styleUrls: ['./aside.component.scss']
 })
 export class AsideComponent {
-  hideAside: boolean = true;
-  useDarkMode: boolean = true;
+  public hideAside: boolean = true;
+  public useDarkMode: boolean = true;
+  public currentRoute: RoutePagesEnum = RoutePagesEnum.Root;
+  public routePages = RoutePagesEnum;
 
-  constructor(private layoutService: LayoutService) {
+  constructor(private layoutService: LayoutService, private routerService: RouterService) {
     this.layoutService.toggleAsideLeft.subscribe((x) => {
       this.hideAside = x;
     })
@@ -18,6 +23,13 @@ export class AsideComponent {
     this.layoutService.useDarkMode.subscribe((x) => {
       this.useDarkMode = x;
     })
+    
+    this.routerService.navigationEnd.subscribe((event: NavigationEnd)=> {
+      this.currentRoute = this.routerService.getCurrentRoute();
+    })
+  }
+
+  ngOnInit() {
   }
 
   toggleAside() {

@@ -13,9 +13,9 @@
     </div>
     </div>
     <div class="aside-btn-list">
-        <details class="collapse" routerLink="/video/*" routerLinkActive="selected">
+        <details class="collapse" [open]="[routePages.Root, routePages.Video, routePages.VideoPlayer, routePages.VideoEdit, routePages.VideoConverter].includes(currentRoute)">
             <summary class="title">
-                <div class="aside-btn" data-bs-toggle="collapse" href="#collapseExample"><i class="gg-camera"></i>Vídeo</div>
+                <div class="aside-btn" routerLink="/video" routerLinkActive="selected" data-bs-toggle="collapse"><i class="gg-camera"></i>Vídeo</div>
             </summary>
             <div class="description">
                 <div class="vertical-bar"></div>
@@ -35,7 +35,7 @@
                 </div>               
             </div>
         </details>
-        <div class="aside-btn" routerLink="/image" routerLinkActive="selected"><i class="gg-music"></i>Audio</div>
-        <div class="aside-btn" routerLink="/audio" routerLinkActive="selected"><i class="gg-image"></i>Imagens</div>
+        <div class="aside-btn" routerLink="/audio" routerLinkActive="selected"><i class="gg-music"></i>Audio</div>
+        <div class="aside-btn" routerLink="/image" routerLinkActive="selected"><i class="gg-image"></i>Imagens</div>
     </div>
 </div>

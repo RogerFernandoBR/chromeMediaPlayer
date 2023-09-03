@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RoutePages } from './enums/_enums';
+import { RoutePagesEnum } from './enums/_enums';
 
 import { VideoComponent } from './components/video/video.component';
 import { VideoEditComponent } from './components/video-edit/video-edit.component';
@@ -9,17 +9,17 @@ import { ImagesComponent } from './components/images/images.component';
 import { AudioComponent } from './components/audio/audio.component';
 
 const routes: Routes = [
-  { path: RoutePages.Root, redirectTo: RoutePages.Video, pathMatch: 'full'},
-  { path: RoutePages.Video, children: [
-      { path: RoutePages.Root, redirectTo: RoutePages.VideoPlayer, pathMatch: 'full'},
-      { path: RoutePages.VideoPlayer, component: VideoComponent},
-      { path: RoutePages.VideoEdit, component: VideoEditComponent},
-      { path: RoutePages.VideoConverter, component: VideoConverterComponent},
+  { path: RoutePagesEnum.Root, redirectTo: RoutePagesEnum.Video, pathMatch: 'full'},
+  { path: RoutePagesEnum.Video, children: [
+      { path: RoutePagesEnum.Root, redirectTo: RoutePagesEnum.VideoPlayer, pathMatch: 'full'},
+      { path: RoutePagesEnum.VideoPlayer, component: VideoComponent},
+      { path: RoutePagesEnum.VideoEdit, component: VideoEditComponent},
+      { path: RoutePagesEnum.VideoConverter, component: VideoConverterComponent},
 		]
 	},
-  { path: RoutePages.Video, component: VideoComponent},
-  { path: RoutePages.Image, component: ImagesComponent},
-  { path: RoutePages.Audio, component: AudioComponent},
+  { path: RoutePagesEnum.Video, component: VideoComponent},
+  { path: RoutePagesEnum.Image, component: ImagesComponent},
+  { path: RoutePagesEnum.Audio, component: AudioComponent},
 ]
 
 @NgModule({

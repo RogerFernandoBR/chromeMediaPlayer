@@ -1,4 +1,4 @@
-export enum RoutePages {
+export enum RoutePagesEnum {
     Root = '',
     PageNotFound = 'pageNotFound',
     Video = 'video',
