@@ -44,6 +44,16 @@
         .file {            
             margin-left: 0px;
             height: auto;
+            width: calc(100vw - 32px);
+
+            label {
+                width: 100%;
+
+                img {
+                    width: 20%;
+                    min-width: 50px;
+                }
+            }
         }
     }
 }
