@@ -20,8 +20,8 @@
                         position: absolute;
                         width: 24px;
                         height: 24px;
-                        top: 0;
-                        left: 0px;
+                        top: 17px;
+                        left: 8px;
                         cursor: pointer;
                     }
 
@@ -227,16 +227,36 @@
 
                     .container-btn-close {
                         position: fixed;
-                        top: 28px;
+                        top: 16px;
                         left: 16px; 
+
+                        &:hover {
+                            background-color: $v100;
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 100%;
+                            position: fixed;
+                            top: 16px;
+                            left: 16px;
+                        }
                     }
                 }
 
                 &:not(.hide-aside) {
                     .container-btn-close {
                         position: fixed;
-                        top: 28px;
+                        top: 16px;
                         left: 16px;
+
+                        &:hover {
+                            background-color: $v100;
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 100%;
+                            position: fixed;
+                            top: 16px;
+                            left: 16px;
+                        }
                     }
                 }
 
