@@ -1,0 +1,12 @@
+@mixin theme-modal($theme, $v50, $v100, $v200, $v300, $v400, $v500) {
+    .#{$theme} {
+        .backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: $v500;
+        }
+    }
+}

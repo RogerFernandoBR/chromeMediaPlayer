@@ -39,6 +39,9 @@
         <div class="aside-btn" routerLink="/image" routerLinkActive="selected"><i class="gg-image"></i>Imagens</div>
     </div>
     <div class="aside-footer">
-        © 2023 Roger Carvalho - Todos os direitos reservados. <a href="">Saiba mais sobre</a>
+        © 2023 Roger Carvalho - Todos os direitos reservados. <a href="#" (click)="toggleModal($event)">Saiba mais sobre</a>
     </div>
 </div>
+
+
+<app-modal [showModal]="showModal"></app-modal>

@@ -13,6 +13,7 @@ import { AudioComponent } from './components/audio/audio.component';
 import { VideoComponent } from './components/video/video.component';
 import { VideoEditComponent } from './components/video-edit/video-edit.component';
 import { VideoConverterComponent } from './components/video-converter/video-converter.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { VideoConverterComponent } from './components/video-converter/video-conv
     VideoComponent,
     VideoEditComponent,
     VideoConverterComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

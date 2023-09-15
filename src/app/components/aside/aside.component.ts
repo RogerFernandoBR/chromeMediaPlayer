@@ -14,6 +14,7 @@ export class AsideComponent {
   public useDarkMode: boolean = true;
   public currentRoute: RoutePagesEnum = RoutePagesEnum.Root;
   public routePages = RoutePagesEnum;
+  public showModal: boolean = false;
 
   constructor(private layoutService: LayoutService, private routerService: RouterService) {
     this.layoutService.toggleAsideLeft.subscribe((x) => {
@@ -34,5 +35,10 @@ export class AsideComponent {
 
   toggleAside() {
     this.layoutService.toggleAside();
+  }
+
+  toggleModal(event: MouseEvent) {
+    event.preventDefault();
+    this.showModal = !this.showModal;
   }
 }
