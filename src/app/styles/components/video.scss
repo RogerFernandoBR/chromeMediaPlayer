@@ -17,6 +17,7 @@
         height: 100%;
         margin-left: 16px;
         width: 350px;
+        max-width: calc(100vw - 32px);
     
         #input-file {
             visibility: hidden;
@@ -34,3 +35,27 @@
         }
     }
 }
+
+@media only screen and (max-width: 700px) {
+    .main-container {
+        justify-content: flex-end;
+        flex-direction: column-reverse;
+
+        .file {            
+            margin-left: 0px;
+            height: auto;
+            width: calc(100vw - 32px);
+
+            label {
+                width: 100%;
+                margin-bottom: 16px;
+
+                img {
+                    width: 20%;
+                    min-width: 50px;
+                }
+            }
+        }
+    }
+}
+
