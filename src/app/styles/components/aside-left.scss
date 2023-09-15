@@ -299,14 +299,10 @@
                 }
 
                 .aside-btn-list {
-                    .aside-btn {
-                        &.selected {
-                            background-color: $primary !important;
+                    .aside-btn {            
+                        &:hover, &.selected {
                             color: $white !important;
-                        }
-
-                        &.hover {
-                            background-color: purple;
+                            background-color: $primary;
                         }
                     }
 
