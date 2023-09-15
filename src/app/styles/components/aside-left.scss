@@ -219,6 +219,14 @@
                         }
                     }
                 }
+
+                .aside-footer {
+                    position: absolute;
+                    bottom: 0;
+                    padding: 16px;
+                    text-align: center;
+                    font-size: .9rem;
+                }
             
                 &.hide-aside {
                     position: absolute;
@@ -272,9 +280,13 @@
 
                 .aside-btn-list {
                     .aside-btn {
-                        &:hover, &.selected {
+                        &.selected {
                             background-color: $primary !important;
                             color: $white !important;
+                        }
+
+                        &.hover {
+                            background-color: purple;
                         }
                     }
 
