@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RoutePagesEnum } from './enums/_enums';
 
-import { VideoComponent } from './components/video/video.component';
-import { VideoEditComponent } from './components/video-edit/video-edit.component';
-import { VideoConverterComponent } from './components/video-converter/video-converter.component';
-import { ImagesComponent } from './components/images/images.component';
-import { AudioComponent } from './components/audio/audio.component';
+import { VideoComponent } from './pages/video/video.component';
+import { VideoEditComponent } from './pages/video-edit/video-edit.component';
+import { VideoConverterComponent } from './pages/video-converter/video-converter.component';
+import { ImagesComponent } from './pages/images/images.component';
+import { AudioComponent } from './pages/audio/audio.component';
 
 const routes: Routes = [
   { path: RoutePagesEnum.Root, redirectTo: RoutePagesEnum.Video, pathMatch: 'full'},
