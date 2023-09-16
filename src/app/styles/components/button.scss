@@ -7,12 +7,12 @@
                 cursor: pointer;
     
                 &.primary {
-                    background-color: $v100;
-                    color: $v500;
+                    background-color: $primary;
+                    color: $white;
                 }
     
                 &:hover {                
-                    background-color: $v200;
+                    background-color: rgba($primary, .9);
                 }
             }
         }
