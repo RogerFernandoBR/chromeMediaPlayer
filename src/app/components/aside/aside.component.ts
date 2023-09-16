@@ -21,9 +21,6 @@ export class AsideComponent {
     modalHeader: {
       title: "Sobre a aplicação e o Desenvolvedor",
     },
-    modalBody: {
-      template: "Não obstante, a mobilidade dos capitais internacionais afeta positivamente a correta previsão do sistema de formação de quadros que corresponde às necessidades. Não obstante, a mobilidade dos capitais internacionais afeta positivamente a correta previsão do sistema de formação de quadros que corresponde às necessidades. Não obstante, a mobilidade dos capitais internacionais afeta positivamente a correta previsão do sistema de formação de quadros que corresponde às necessidades."
-    },
     modalFooter: {
       buttons: [
         {

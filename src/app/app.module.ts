@@ -15,6 +15,7 @@ import { VideoEditComponent } from './components/video-edit/video-edit.component
 import { VideoConverterComponent } from './components/video-converter/video-converter.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ButtonComponent } from './components/button/button.component';
+import { ButtonCloseComponent } from './components/button-close/button-close.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ButtonComponent } from './components/button/button.component';
     VideoEditComponent,
     VideoConverterComponent,
     ModalComponent,
-    ButtonComponent
+    ButtonComponent,
+    ButtonCloseComponent
   ],
   imports: [
     BrowserModule,
