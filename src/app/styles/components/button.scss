@@ -1,0 +1,18 @@
+@mixin theme-button($theme, $v50, $v100, $v200, $v300, $v400, $v500) {
+    .#{$theme} {
+        .btn {
+            padding: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+
+            &.primary {
+                background-color: $v100;
+                color: $v500;
+            }
+
+            &:hover {                
+                background-color: $v200;
+            }
+        }
+    }
+}

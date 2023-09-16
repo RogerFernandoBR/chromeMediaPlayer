@@ -1,1 +1,1 @@
-export * from './route-pages';
+export * from './route-pages.enum';

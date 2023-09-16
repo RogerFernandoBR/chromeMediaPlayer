@@ -1,7 +1,7 @@
-<div class="backdrop">
-    <div class="modal-container">
-        <div class="modal-header">Título do modal</div>
-        <div class="modal-body">Corpo do moadl</div>
-        <div class="modal-footer">Rodapé do modal</div>
+<div class="modal-backdrop" *ngIf="showModal">
+    <div class="modal-container medium">
+        <div *ngIf="options?.modalHeader" class="modal-header">{{options?.modalHeader?.title}}</div>
+        <div *ngIf="options?.modalBody" class="modal-body">{{options?.modalBody?.template}}</div>
+        <div *ngIf="options?.modalFooter" class="modal-footer"><app-button [options]="buttonCloseOptions" (click)="toggleModal()"></app-button></div>
     </div>
 </div>
