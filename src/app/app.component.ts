@@ -14,10 +14,12 @@ export class AppComponent {
   hideAside: boolean = true;
   viewPortWidth: number = window.innerWidth;
   useDarkMode: boolean = true;
+  showBackdrop: boolean = false;
 
   constructor(private layoutService: LayoutService) {
     this.layoutService.toggleAsideLeft.subscribe((x) => {
       this.hideAside = x;
+      this.showBackdrop = !x;
     });
 
     this.layoutService.useDarkMode.subscribe((x) => {
@@ -34,6 +36,10 @@ export class AppComponent {
     this.onResize();
 
     
+  }
+
+  toggleAside() {
+    this.layoutService.toggleAside();
   }
 
   onResize() {

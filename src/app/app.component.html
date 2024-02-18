@@ -2,4 +2,7 @@
     <app-aside class="grid-item aside"></app-aside>
     <app-navbar class="grid-item navbar"></app-navbar>
     <app-content class="grid-item content"></app-content>
+
+    <!-- Backdrop -->
+    <div class="mdp-backdrop" *ngIf="showBackdrop" (click)="toggleAside()"></div>
 </div>
