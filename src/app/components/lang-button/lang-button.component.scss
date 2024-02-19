@@ -1,0 +1,14 @@
+.cmp-btn-rounded {
+    border: 1px solid white;
+    border-radius: 200px;
+    height: 22%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+
+    .icon-language {
+        margin-right: 8px;
+    }
+}

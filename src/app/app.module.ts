@@ -16,6 +16,7 @@ import { VideoConverterComponent } from './pages/video-converter/video-converter
 import { ModalComponent } from './components/modal/modal.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ButtonCloseComponent } from './components/button-close/button-close.component';
+import { LangButtonComponent } from './components/lang-button/lang-button.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ButtonCloseComponent } from './components/button-close/button-close.com
     VideoConverterComponent,
     ModalComponent,
     ButtonComponent,
-    ButtonCloseComponent
+    ButtonCloseComponent,
+    LangButtonComponent
   ],
   imports: [
     BrowserModule,
