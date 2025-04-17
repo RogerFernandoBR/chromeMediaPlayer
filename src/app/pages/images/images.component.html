@@ -1,1 +1,23 @@
-<p>images works!</p>
+<h2>Editor de Imagens</h2>
+
+<div class="controls">
+  <input type="file" id="fileInput" accept="image/*" />
+  <button (click)="flipImage(true)">Inverter Horizontal</button>
+  <button (click)="flipImage(false)">Inverter Vertical</button>
+  <button (click)="startSelection()">Cortar área selecionada</button>
+  <button (click)="applyCrop()">Aplicar Corte</button>
+  <div class="resize-group">
+    Largura: <input type="number" id="resizeWidth" style="width: 60px;">
+    Altura: <input type="number" id="resizeHeight" style="width: 60px;">
+    <label><input type="checkbox" id="keepAspect" checked> Manter proporção</label>
+    <button (click)="resizeImage()">Redimensionar</button>
+  </div>
+  <select id="formatSelect">
+    <option value="image/png">PNG</option>
+    <option value="image/jpeg">JPEG</option>
+    <option value="image/webp">WebP</option>
+  </select>
+  <button (click)="downloadImage()">Baixar</button>
+</div>
+
+<canvas id="canvas"></canvas>
