@@ -15,11 +15,78 @@
     transition: background-color .25s;
 
     &:hover {
-        background-color: #3B3B3B
+        background-color: #3B3B3B;
+        transition: background-color .25s;
     }
 }
 .aspect {
     cursor: pointer;
+}
+mat-form-field {
+    width: 130px;
+}
+::ng-deep .mat-mdc-text-field-wrapper {
+    height: 40px !important;
+    align-items: center;
+    border-radius: 6px !important;
+    background-color: #161618 !important;
+    transition: background-color .25s;
+
+    &:hover {
+        background-color: #3B3B3B !important;
+        transition: background-color .25s;
+    }
+
+    .mat-mdc-form-field-flex {
+        height: 40px !important;
+
+        label {
+            top: 22px !important;
+        }
+
+        input {
+            padding-top: 18px !important;
+        }
+    }
+
+    .mat-mdc-form-field-infix {
+        height: 40px !important;
+        min-height: 40px !important;
+        padding: 0 !important;
+    }
+}
+::ng-deep .mat-mdc-form-field-subscript-wrapper,
+::ng-deep .mdc-line-ripple {
+  display: none !important;
+}
+::ng-deep .mat-mdc-form-field {
+    color: white !important;
+}
+::ng-deep .mat-mdc-input-element {
+    color: white !important;           // valor digitado
+    caret-color: white !important;     // cor do cursor
+}
+  
+::ng-deep .mdc-floating-label {
+    color: white !important;           // label flutuante
+}
+  
+::ng-deep .mat-mdc-form-field-hint,
+::ng-deep .mat-mdc-form-field-error {
+    color: white !important;           // mensagens abaixo
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  filter: invert(1); // inverte a cor
+}
+::ng-deep .mat-mdc-form-field-placeholder {
+    color: white !important;           // placeholder
+}
+  
+::ng-deep .mat-input-element {
+    padding: 0 8px;
+    height: 100%;
+    font-size: 14px;
 }
 ::ng-deep .mat-mdc-icon-button.mat-mdc-button-base {
     width: 40px;
@@ -67,4 +134,5 @@ canvas {
     display: flex;
     align-items: center;
     gap: 5px;
+    padding: 0 !important;
 }

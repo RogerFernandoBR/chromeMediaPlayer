@@ -1,4 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-images',
@@ -21,6 +22,13 @@ export class ImagesComponent implements AfterViewInit {
   resizeHandleSize = 10;
   originalAspectRatio = 1;
   keepAspect = true;
+  useDarkMode: boolean = true;
+
+  constructor(private layoutService: LayoutService) {
+    this.layoutService.useDarkMode.subscribe((x) => {
+      this.useDarkMode = x;
+    })
+  }
 
   ngAfterViewInit() {
     this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
