@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IUploadInterface } from 'src/app/interfaces/_interfaces';
 import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
@@ -7,6 +8,7 @@ import { LayoutService } from 'src/app/services/layout.service';
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent {
+  @Input() uploadObj: IUploadInterface | undefined;
   useDarkMode: boolean = true;
 
   constructor(private layoutService: LayoutService) {

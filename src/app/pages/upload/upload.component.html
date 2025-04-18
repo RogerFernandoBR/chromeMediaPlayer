@@ -1,5 +1,4 @@
 <div class="upload-container">
-    <img *ngIf="useDarkMode" src="../../../assets/img/video-dark.png" alt="">
-    <img *ngIf="!useDarkMode" src="../../../assets/img/video-light.png" alt="">
-    <span>Arraste sua midia aqui ou clique para procurar!</span>
+    <lucide-icon [name]="uploadObj?.icon?.name" [strokeWidth]="uploadObj?.icon?.stroke" [size]="uploadObj?.icon?.size"></lucide-icon>
+    <span>{{ uploadObj?.text }}</span>
 </div>

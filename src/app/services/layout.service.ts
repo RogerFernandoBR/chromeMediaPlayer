@@ -7,11 +7,16 @@ import { BehaviorSubject } from 'rxjs';
 
 export class LayoutService {
 
-  constructor() { }
+  constructor() { 
+    this.isMobileViewPortWidth();
+
+    document.getElementsByClassName("grid-mercury")
+  }
 
 
   // Color mode
   useDarkMode = new BehaviorSubject(true);
+  isMobileView = new BehaviorSubject(false);
 
   toggleColorMode(useDarkMode?: boolean) {
     if (typeof (useDarkMode) == "undefined") useDarkMode = !this.useDarkMode.getValue();
@@ -31,6 +36,14 @@ export class LayoutService {
       this.toggleAside(false);
     }else {
       this.toggleAside(true);
+    }
+  }
+
+  isMobileViewPortWidth() {
+    if (window.innerWidth >= 700) {
+      this.isMobileView.next(true);
+    }else {
+      this.isMobileView.next(false);
     }
   }
 }

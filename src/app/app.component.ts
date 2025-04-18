@@ -19,7 +19,11 @@ export class AppComponent {
   constructor(private layoutService: LayoutService) {
     this.layoutService.toggleAsideLeft.subscribe((x) => {
       this.hideAside = x;
-      this.showBackdrop = !x;
+      if (window.innerWidth >= 700) {
+        this.showBackdrop = false;
+      } else {
+        this.showBackdrop = !x;
+      }      
     });
 
     this.layoutService.useDarkMode.subscribe((x) => {
@@ -33,9 +37,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.onResize();
-
-    
+    this.onResize();    
   }
 
   toggleAside() {
@@ -44,6 +46,5 @@ export class AppComponent {
 
   onResize() {
     this.layoutService.checkViewPortWidth();
-
   }
 }

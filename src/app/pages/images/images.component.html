@@ -51,11 +51,7 @@
         </button>
     </mat-menu>
     </div>
-    <div class="upload-container">
-        <img *ngIf="useDarkMode" src="../../../assets/img/video-dark.png" alt="">
-        <img *ngIf="!useDarkMode" src="../../../assets/img/video-light.png" alt="">
-        <span>Arraste sua midia aqui ou clique para procurar!</span>
-    </div>
-    <input type="file" id="fileInput" accept="image/*" />
+    <app-upload [uploadObj]="uploadObj" (click)="triggerUpload()" (dragover)="onDragOver($event)" (drop)="onDrop($event)"></app-upload>
+    <input type="file" id="fileInput" accept="image/*" style="display: none;" />
     <canvas id="canvas"></canvas>
 </div>

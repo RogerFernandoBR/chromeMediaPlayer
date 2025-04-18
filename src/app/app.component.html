@@ -4,5 +4,5 @@
     <app-content class="grid-item content"></app-content>
 
     <!-- Backdrop -->
-    <div class="mdp-backdrop" *ngIf="showBackdrop" (click)="toggleAside()"></div>
+    <div class="mdp-backdrop" [ngClass]="{ 'show-backdrop': showBackdrop }" *ngIf="showBackdrop" (click)="toggleAside()"></div>
 </div>

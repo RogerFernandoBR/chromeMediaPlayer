@@ -1,5 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { LayoutService } from 'src/app/services/layout.service';
+import { IUploadInterface } from 'src/app/interfaces/_interfaces';
 
 @Component({
   selector: 'app-images',
@@ -23,6 +24,15 @@ export class ImagesComponent implements AfterViewInit {
   originalAspectRatio = 1;
   keepAspect = true;
   useDarkMode: boolean = true;
+
+  uploadObj: IUploadInterface = {
+    text: "Arraste sua midia aqui ou clique para procurar!",
+    icon: {
+      name: "image-plus",
+      size: "90",
+      stroke: 0.5
+    }
+  }
 
   constructor(private layoutService: LayoutService) {
     this.layoutService.useDarkMode.subscribe((x) => {
@@ -79,7 +89,7 @@ export class ImagesComponent implements AfterViewInit {
         this.selection = { x, y, width: 0, height: 0 };
       }
     });
-
+    
     this.canvas.addEventListener('mousemove', (e) => {
       if (!this.selectionEnabled) return;
       const rect = this.canvas.getBoundingClientRect();
@@ -124,6 +134,39 @@ export class ImagesComponent implements AfterViewInit {
     });
   }
 
+  triggerUpload() {
+    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+    fileInput?.click();
+  }
+  
+  onDragOver(event: DragEvent) {
+    event.preventDefault();  // Impede o comportamento padrão (como abrir a imagem no navegador)
+    event.stopPropagation();  // Impede que o evento se propague
+  }
+  
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    const file = event.dataTransfer?.files[0]; // Obtém o arquivo arrastado
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (loadEvent: any) => {
+        this.img.onload = () => {
+          this.canvas.width = this.img.width;
+          this.canvas.height = this.img.height;
+          this.originalAspectRatio = this.img.width / this.img.height;
+          if (this.ctx) this.ctx.drawImage(this.img, 0, 0);
+          this.updateResizeInputs();
+          this.selection = null;
+          this.draw();
+        };
+        this.img.src = loadEvent.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  
   startSelection() {
     this.selection = null;
     this.selectionEnabled = true;

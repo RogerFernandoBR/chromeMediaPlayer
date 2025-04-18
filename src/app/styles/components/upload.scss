@@ -1,5 +1,8 @@
 @mixin theme-upload($theme, $v50, $v100, $v200, $v300, $v400, $v500) {
     .#{$theme} {
+        app-upload {
+            width: 100%;
+        }
         .upload-container {
             padding: 16px;
             display: flex;
@@ -17,8 +20,10 @@
                 background-color: $v200;
             }
 
-            img {
-                width: 100%;
+            lucide-icon {
+                svg {
+                    stroke-width: 0.5;
+                }
             }
         }
     }
