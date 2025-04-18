@@ -1,23 +1,53 @@
 <h2>Editor de Imagens</h2>
 
-<div class="controls">
-  <input type="file" id="fileInput" accept="image/*" />
-  <button (click)="flipImage(true)">Inverter Horizontal</button>
-  <button (click)="flipImage(false)">Inverter Vertical</button>
-  <button (click)="startSelection()">Cortar área selecionada</button>
-  <button (click)="applyCrop()">Aplicar Corte</button>
-  <div class="resize-group">
-    Largura: <input type="number" id="resizeWidth" style="width: 60px;">
-    Altura: <input type="number" id="resizeHeight" style="width: 60px;">
-    <label><input type="checkbox" id="keepAspect" checked> Manter proporção</label>
-    <button (click)="resizeImage()">Redimensionar</button>
-  </div>
-  <select id="formatSelect">
-    <option value="image/png">PNG</option>
-    <option value="image/jpeg">JPEG</option>
-    <option value="image/webp">WebP</option>
-  </select>
-  <button (click)="downloadImage()">Baixar</button>
-</div>
+<div class="container">
+    <div class="controls">
+    <input type="file" id="fileInput" accept="image/*" />
+    <lucide-angular (click)="flipImage(true)" name="FlipHorizontal2" class="my-icon" aria-label="Inverter horizontalmente" matTooltip="Inverter horizontalmente"></lucide-angular>
+    <lucide-angular (click)="flipImage(false)" name="FlipVertical2" class="my-icon" aria-label="Inverter verticalmente" matTooltip="Inverter verticalmente"></lucide-angular>
+    <lucide-angular (click)="startSelection()" name="scissors" class="my-icon" aria-label="Selecionar área" matTooltip="Selecionar área"></lucide-angular>
+    <lucide-angular (click)="applyCrop()" name="check" class="my-icon" aria-label="Aplicar corte" matTooltip="Aplicar corte"></lucide-angular>
+    
+    <div class="resize-group">
+        Largura
+        <input type="number" id="resizeWidth" style="width: 60px;" (change)="resizeImage()">
+        
+        <lucide-icon 
+            [name]="keepAspect ? 'link-2' : 'link-2-off'" 
+            class="aspect" 
+            size="14"
+            (click)="keepAspect = !keepAspect" 
+            [attr.aria-label]="keepAspect ? 'Remover proporção' : 'Manter proporção'"
+            [matTooltip]="keepAspect ? 'Remover proporção' : 'Manter proporção'">
+        </lucide-icon>
+        <!-- Checkbox oculto, só para manter compatibilidade -->
+        <input type="checkbox" id="keepAspect" [checked]="keepAspect" hidden />
 
-<canvas id="canvas"></canvas>
+        <input type="number" id="resizeHeight" style="width: 60px;" (change)="resizeImage()"/>
+        Altura
+    </div>
+
+    <!-- Botão que abre o menu -->
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="my-icon" matTooltip="Baixar imagem">
+        <lucide-icon name="Download" aria-label="Baixar imagem"></lucide-icon>
+    </button>
+    
+    <!-- O menu em si -->
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="downloadImage('image/png')">
+            <lucide-icon name="download" class="me-2"></lucide-icon>
+            <span>PNG</span>
+        </button>
+        <button mat-menu-item (click)="downloadImage('image/jpeg')">
+            <lucide-icon name="download" class="me-2" stroke="red"></lucide-icon>
+            <span>JPG</span>
+        </button>
+        <button mat-menu-item (click)="downloadImage('image/webp')">
+            <lucide-icon name="download" class="me-2" stroke="red"></lucide-icon>
+            <span>WebP</span>
+        </button>
+    </mat-menu>
+    </div>
+
+    <canvas id="canvas"></canvas>
+</div>

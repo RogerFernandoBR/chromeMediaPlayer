@@ -20,6 +20,7 @@ export class ImagesComponent implements AfterViewInit {
   dragOffset = { x: 0, y: 0 };
   resizeHandleSize = 10;
   originalAspectRatio = 1;
+  keepAspect = true;
 
   ngAfterViewInit() {
     this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
@@ -237,9 +238,7 @@ export class ImagesComponent implements AfterViewInit {
     }
   }
 
-  downloadImage() {
-    const formatSelect = document.getElementById('formatSelect') as HTMLSelectElement;
-    const format = formatSelect.value;
+  downloadImage(format: string) {
     const link = document.createElement('a');
     link.download = `imagem.${format.split('/')[1]}`;
     link.href = this.canvas.toDataURL(format);

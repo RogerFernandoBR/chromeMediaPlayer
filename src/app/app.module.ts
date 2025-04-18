@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { LucideAngularModule, FlipHorizontal2, FlipVertical2, Scissors, Check, Download, Link2, Link2Off } from 'lucide-angular';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +21,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ButtonCloseComponent } from './components/button-close/button-close.component';
 import { LangButtonComponent } from './components/lang-button/lang-button.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -34,11 +39,16 @@ import { LangButtonComponent } from './components/lang-button/lang-button.compon
     ModalComponent,
     ButtonComponent,
     ButtonCloseComponent,
-    LangButtonComponent
+    LangButtonComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    LucideAngularModule.pick({ FlipHorizontal2, FlipVertical2, Scissors, Check, Download, Link2, Link2Off }),
+    BrowserAnimationsModule,
+    MatTooltipModule,
+    MatMenuModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
