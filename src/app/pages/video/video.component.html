@@ -5,10 +5,10 @@
         style="width:100%" 
         controls></video>
     </div>
-
+    
     <div class='file file--upload'>
         <label for='input-file'>
-            <app-upload for='input-file'></app-upload>
+            <app-upload [uploadObj]="uploadObj" (click)="triggerUpload()" (dragover)="onDragOver($event)" (drop)="onDrop($event)"></app-upload>
         </label>
         <input id="input-file" type="file" accept="video/*" (change)="onSelectedFile($event)">
     </div>
