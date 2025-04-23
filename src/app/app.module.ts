@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { MatRippleModule } from '@angular/material/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +26,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { ButtonCloseComponent } from './components/button-close/button-close.component';
 import { LangButtonComponent } from './components/lang-button/lang-button.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SquareButtonComponent } from './components/square-button/square-button.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ButtonComponent,
     ButtonCloseComponent,
     LangButtonComponent,
+    SquareButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatRippleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

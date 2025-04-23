@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { LayoutService } from 'src/app/services/layout.service';
-import { IUploadInterface } from 'src/app/interfaces/_interfaces';
+import { ISquareBtnInterface, IUploadInterface } from 'src/app/interfaces/_interfaces';
 
 @Component({
   selector: 'app-images',
@@ -8,6 +8,36 @@ import { IUploadInterface } from 'src/app/interfaces/_interfaces';
   styleUrls: ['./images.component.scss']
 })
 export class ImagesComponent implements AfterViewInit {
+  toolsButtons: Array<ISquareBtnInterface> = [
+    {
+      label: "Inverter horizontalmente",
+      action: () => this.flipImage(true),
+      icon: {
+        name: "FlipHorizontal2",
+      }
+    },
+    {
+      label: "Inverter verticalmente",
+      action: () => this.flipImage(false),
+      icon: {
+        name: "FlipVertical2",
+      }
+    },
+    {
+      label: "Cortar imagem",
+      action: () => this.startSelection(),
+      icon: {
+        name: "scissors",
+      }
+    },
+    {
+      label: "Aplicar corte",
+      action: () => this.applyCrop(),
+      icon: {
+        name: "check",
+      }
+    },
+  ]
   canvas!: HTMLCanvasElement;
   ctx!: CanvasRenderingContext2D | null;
   resizeWidthInput!: HTMLInputElement;
@@ -167,6 +197,10 @@ export class ImagesComponent implements AfterViewInit {
     }
   }
   
+  onButtonClicked() {
+    alert("botão clicado")
+  }
+
   startSelection() {
     this.selection = null;
     this.selectionEnabled = true;

@@ -10,6 +10,6 @@
         <label for='input-file'>
             <app-upload [uploadObj]="uploadObj" (click)="triggerUpload()" (dragover)="onDragOver($event)" (drop)="onDrop($event)"></app-upload>
         </label>
-        <input id="input-file" type="file" accept="video/*" (change)="onSelectedFile($event)">
+        <input id="input-file" type="file" accept="video/*" (change)="onSelectedFile($event)" style="display: none;">
     </div>
 </div>

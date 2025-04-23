@@ -1,57 +1,65 @@
 <h2>Editor de Imagens</h2>
-
-<div class="container">
-    <div class="controls">
-    <lucide-angular (click)="flipImage(true)" name="FlipHorizontal2" class="my-icon" aria-label="Inverter horizontalmente" matTooltip="Inverter horizontalmente"></lucide-angular>
-    <lucide-angular (click)="flipImage(false)" name="FlipVertical2" class="my-icon" aria-label="Inverter verticalmente" matTooltip="Inverter verticalmente"></lucide-angular>
-    <lucide-angular (click)="startSelection()" name="scissors" class="my-icon" aria-label="Selecionar área" matTooltip="Selecionar área"></lucide-angular>
-    <lucide-angular (click)="applyCrop()" name="check" class="my-icon" aria-label="Aplicar corte" matTooltip="Aplicar corte"></lucide-angular>
-    
-    <div class="resize-group">
-        <mat-form-field appearance="fill">
-            <mat-label>Largura</mat-label>
-            <input matInput type="number" id="resizeWidth" (change)="resizeImage()">
-        </mat-form-field>
+<div class="image-container">
+    <div class="canvas-container">    
+        <canvas id="canvas"></canvas>
+    </div>
+    <div class="tools-container">
+        <app-upload [uploadObj]="uploadObj" (click)="triggerUpload()" (dragover)="onDragOver($event)" (drop)="onDrop($event)"></app-upload>
+        <input type="file" id="fileInput" accept="image/*" style="display: none;" />
+        <div class="tool-bar">
+            <app-square-button *ngFor="let tool of toolsButtons" [squareButtonObj]="tool" (buttonClicked)="onButtonClicked()"></app-square-button>
+        </div>        
         
-        <lucide-icon 
-            [name]="keepAspect ? 'link-2' : 'link-2-off'" 
-            class="aspect" 
-            size="14"
-            (click)="keepAspect = !keepAspect" 
-            [attr.aria-label]="keepAspect ? 'Remover proporção' : 'Manter proporção'"
-            [matTooltip]="keepAspect ? 'Remover proporção' : 'Manter proporção'">
-        </lucide-icon>
-        <!-- Checkbox oculto, só para manter compatibilidade -->
-        <input type="checkbox" id="keepAspect" [checked]="keepAspect" hidden />
-
-        <mat-form-field appearance="fill">
-            <mat-label>Altura</mat-label>
-            <input matInput type="number" id="resizeHeight" (change)="resizeImage()">
-        </mat-form-field>
+        <div class="controls">
+            <app-square-button></app-square-button>
+            <lucide-angular (click)="flipImage(true)" name="FlipHorizontal2" class="my-icon" aria-label="Inverter horizontalmente" matTooltip="Inverter horizontalmente"></lucide-angular>
+            <lucide-angular (click)="flipImage(false)" name="FlipVertical2" class="my-icon" aria-label="Inverter verticalmente" matTooltip="Inverter verticalmente"></lucide-angular>
+            <lucide-angular (click)="startSelection()" name="scissors" class="my-icon" aria-label="Selecionar área" matTooltip="Selecionar área"></lucide-angular>
+            <lucide-angular (click)="applyCrop()" name="check" class="my-icon" aria-label="Aplicar corte" matTooltip="Aplicar corte"></lucide-angular>
+            
+            <div class="resize-group">
+                <mat-form-field appearance="fill">
+                    <mat-label>Largura</mat-label>
+                    <input matInput type="number" id="resizeWidth" (change)="resizeImage()">
+                </mat-form-field>
+                
+                <lucide-icon 
+                    [name]="keepAspect ? 'link-2' : 'link-2-off'" 
+                    class="aspect" 
+                    size="14"
+                    (click)="keepAspect = !keepAspect" 
+                    [attr.aria-label]="keepAspect ? 'Remover proporção' : 'Manter proporção'"
+                    [matTooltip]="keepAspect ? 'Remover proporção' : 'Manter proporção'">
+                </lucide-icon>
+                <!-- Checkbox oculto, só para manter compatibilidade -->
+                <input type="checkbox" id="keepAspect" [checked]="keepAspect" hidden />
+        
+                <mat-form-field appearance="fill">
+                    <mat-label>Altura</mat-label>
+                    <input matInput type="number" id="resizeHeight" (change)="resizeImage()">
+                </mat-form-field>
+            </div>
+        
+            <!-- Botão que abre o menu -->
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="my-icon" matTooltip="Baixar imagem">
+                <lucide-icon name="Download" aria-label="Baixar imagem"></lucide-icon>
+            </button>
+            
+            <!-- O menu em si -->
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="downloadImage('image/png')">
+                    <lucide-icon name="download" class="me-2"></lucide-icon>
+                    <span>PNG</span>
+                </button>
+                <button mat-menu-item (click)="downloadImage('image/jpeg')">
+                    <lucide-icon name="download" class="me-2" stroke="red"></lucide-icon>
+                    <span>JPG</span>
+                </button>
+                <button mat-menu-item (click)="downloadImage('image/webp')">
+                    <lucide-icon name="download" class="me-2" stroke="red"></lucide-icon>
+                    <span>WebP</span>
+                </button>
+            </mat-menu>
+        </div>
     </div>
-
-    <!-- Botão que abre o menu -->
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="my-icon" matTooltip="Baixar imagem">
-        <lucide-icon name="Download" aria-label="Baixar imagem"></lucide-icon>
-    </button>
-    
-    <!-- O menu em si -->
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="downloadImage('image/png')">
-            <lucide-icon name="download" class="me-2"></lucide-icon>
-            <span>PNG</span>
-        </button>
-        <button mat-menu-item (click)="downloadImage('image/jpeg')">
-            <lucide-icon name="download" class="me-2" stroke="red"></lucide-icon>
-            <span>JPG</span>
-        </button>
-        <button mat-menu-item (click)="downloadImage('image/webp')">
-            <lucide-icon name="download" class="me-2" stroke="red"></lucide-icon>
-            <span>WebP</span>
-        </button>
-    </mat-menu>
-    </div>
-    <app-upload [uploadObj]="uploadObj" (click)="triggerUpload()" (dragover)="onDragOver($event)" (drop)="onDrop($event)"></app-upload>
-    <input type="file" id="fileInput" accept="image/*" style="display: none;" />
-    <canvas id="canvas"></canvas>
 </div>

@@ -4,6 +4,7 @@
 
 $themes: (
   theme-light: (
+    v40 : #d9a8ff,
     v50 : #ffffff,
     v100 : #e9e8e8,
     v200 : #9f9f9f,
@@ -12,6 +13,7 @@ $themes: (
     v500 : #0f0f0f,
   ),
   theme-dark: (    
+    v40 : #161618,
     v50 : #0f0f0f,
     v100 : #222222,
     v200 : #3f3f3f,
@@ -30,6 +32,7 @@ $themes: (
 }
 
 @each $class in map-keys($themes) {
+    $v40 : map-deep-get($themes, $class, v40);
     $v50 : map-deep-get($themes, $class, v50);
     $v100 : map-deep-get($themes, $class, v100);
     $v200 : map-deep-get($themes, $class, v200);
@@ -43,7 +46,7 @@ $themes: (
     @include theme-upload($class, $v50, $v100, $v200, $v300, $v400, $v500);
     @include theme-modal($class, $v50, $v100, $v200, $v300, $v400, $v500);
     @include theme-button($class, $v50, $v100, $v200, $v300, $v400, $v500);
-   
+    @include theme-square-button($class, $v40, $v50, $v100, $v200, $v300, $v400, $v500);
 }
 
 

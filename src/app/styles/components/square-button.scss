@@ -1,0 +1,26 @@
+@mixin theme-square-button($theme, $v40, $v50, $v100, $v200, $v300, $v400, $v500) {
+    .#{$theme} {
+        .square-btn {
+            cursor: pointer;
+            border-radius: 6px;
+            background-color: $v40;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: background-color .25s;
+
+            &:hover {
+                background-color: $v200;
+                transition: background-color .25s;
+            }
+
+            lucide-angular {
+                display: flex;
+            }
+        }
+    }
+}

@@ -1,0 +1,13 @@
+<div 
+    *ngIf="squareButtonObj" 
+    class="square-btn" matRipple 
+    [matRippleColor]="'rgba(179, 102, 255, 0.3)'" 
+    (click)="onCLick()"
+>
+    <lucide-angular 
+        [name]="squareButtonObj.icon?.name" 
+        [ariaLabel]="squareButtonObj.label" 
+        [matTooltip]="squareButtonObj.label"
+        strokeWidth="2"
+    ></lucide-angular>
+</div>
