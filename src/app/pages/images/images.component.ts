@@ -215,7 +215,7 @@ export class ImagesComponent implements AfterViewInit {
     });
 
     this.resizeWidthInput.addEventListener('input', () => {
-      if (this.keepAspectCheckbox.checked) {
+      if (this.keepAspect) {
         this.resizeHeightInput.value = Math.round(
           parseInt(this.resizeWidthInput.value) / this.originalAspectRatio
         ).toString();
@@ -223,7 +223,7 @@ export class ImagesComponent implements AfterViewInit {
     });
 
     this.resizeHeightInput.addEventListener('input', () => {
-      if (this.keepAspectCheckbox.checked) {
+      if (this.keepAspect) {
         this.resizeWidthInput.value = Math.round(
           parseInt(this.resizeHeightInput.value) * this.originalAspectRatio
         ).toString();
@@ -357,15 +357,13 @@ export class ImagesComponent implements AfterViewInit {
     const tctx = tempCanvas.getContext('2d');
     tempCanvas.width = width;
     tempCanvas.height = height;
-    tctx?.drawImage(this.canvas, 0, 0, width, height);
+    tctx?.drawImage(this.img, 0, 0, width, height);
     this.canvas.width = width;
     this.canvas.height = height;
-    this.ctx?.drawImage(tempCanvas, 0, 0);
+    this.ctx?.drawImage(tempCanvas, 0, 0, width, height);
 
     this.img.src = this.canvas.toDataURL();
     this.img.onload = () => {
-      this.originalAspectRatio = this.img.width / this.img.height;
-      this.updateResizeInputs();
       this.saveState();
       this.updateButtonStates();
       this.draw();
