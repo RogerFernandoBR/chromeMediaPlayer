@@ -1,4 +1,8 @@
-<mat-form-field appearance="fill">
-    <mat-label>{{inputObj.label}}</mat-label>
-    <input matInput [type]="inputObj.type" [id]="inputObj.id ??''" (change)="onChange()">
-</mat-form-field>
+<div class="input-wrapper">
+    <label *ngIf="inputObj.label" [for]="inputObj.id">{{ inputObj.label }}</label>
+    <input 
+        [type]="inputObj.type" 
+        [id]="inputObj.id ?? ''" 
+        (change)="onChange()"
+        [placeholder]="inputObj.label || ''">
+</div>

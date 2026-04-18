@@ -13,6 +13,7 @@ export class SquareButtonComponent {
     @Input() squareButtonObj!: ISquareBtnInterface;
 
     onCLick() {
+      if (this.squareButtonObj?.disabled) return;
       if (this.squareButtonObj?.action) {
         this.squareButtonObj.action();
       }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { LucideAngularModule, FlipHorizontal2, FlipVertical2, Scissors, Check, Download, Link2, Link2Off, ImagePlus } from 'lucide-angular';
+import { LucideAngularModule, FlipHorizontal2, FlipVertical2, Scissors, Check, Download, Link2, Link2Off, ImagePlus, Undo, Redo, X } from 'lucide-angular';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
@@ -52,7 +52,7 @@ import { InputComponent } from './components/input/input.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    LucideAngularModule.pick({ FlipHorizontal2, FlipVertical2, Scissors, Check, Download, Link2, Link2Off, ImagePlus }),
+    LucideAngularModule.pick({ FlipHorizontal2, FlipVertical2, Scissors, Check, Download, Link2, Link2Off, ImagePlus, Undo, Redo, X }),
     BrowserAnimationsModule,
     MatTooltipModule,
     MatMenuModule,

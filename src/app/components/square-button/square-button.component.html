@@ -3,6 +3,8 @@
     class="square-btn" matRipple 
     [matRippleColor]="'rgba(179, 102, 255, 0.3)'" 
     (click)="onCLick()"
+    [class.disabled]="squareButtonObj.disabled"
+    [attr.aria-disabled]="squareButtonObj.disabled"
 >
     <lucide-angular 
         [name]="squareButtonObj.icon?.name" 

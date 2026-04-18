@@ -1,0 +1,99 @@
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  height: 40px;
+  width: 90px;
+  justify-content: center;
+
+  label {
+    font-size: 12px;
+    font-weight: 500;
+    display: none;
+  }
+
+  input {
+    height: 40px;
+    border: none;
+    border-radius: 6px;
+    padding: 0 12px;
+    font-size: 14px;
+    cursor: text;
+    transition: background-color 0.25s;
+    outline: none;
+
+    &::placeholder {
+      opacity: 0.6;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+// Light mode
+:host-context(.theme-light) {
+  .input-wrapper {
+    input {
+      background-color: #d9a8ff;
+      color: rgba(0, 0, 0, 0.8);
+
+      &::placeholder {
+        color: rgba(0, 0, 0, 0.8);
+      }
+
+      &:hover {
+        background-color: #c99ae8;
+      }
+
+      &:focus {
+        background-color: #c99ae8;
+      }
+    }
+  }
+}
+
+// Dark mode (theme-dark)
+:host-context(.theme-dark) {
+  .input-wrapper {
+    input {
+      background-color: #161618;
+      color: rgba(255, 255, 255, 0.9);
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      &:hover {
+        background-color: #1f1f22;
+      }
+
+      &:focus {
+        background-color: #1f1f22;
+      }
+    }
+  }
+}
+
+// Legacy dark-mode support
+:host-context(.dark-mode) {
+  .input-wrapper {
+    input {
+      background-color: #161618;
+      color: rgba(255, 255, 255, 0.9);
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      &:hover {
+        background-color: #1f1f22;
+      }
+
+      &:focus {
+        background-color: #1f1f22;
+      }
+    }
+  }
+}

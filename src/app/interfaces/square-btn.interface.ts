@@ -4,4 +4,5 @@ export interface ISquareBtnInterface {
     label: string,
     action: () => void,
     icon: IIconInterface,
+    disabled?: boolean,
 }

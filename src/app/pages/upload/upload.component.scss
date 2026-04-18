@@ -1,0 +1,77 @@
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 40px;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.03);
+  border: none;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  span {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 500;
+  }
+
+  lucide-icon {
+    color: rgba(0, 0, 0, 0.3);
+    transition: color 0.3s ease;
+  }
+
+  &:hover lucide-icon {
+    color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+// Dark mode (theme-dark)
+:host-context(.theme-dark) .upload-container {
+  background: rgba(255, 255, 255, 0.03);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  span {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  lucide-icon {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &:hover lucide-icon {
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+// Legacy dark-mode support
+:host-context(.dark-mode) .upload-container {
+  background: rgba(255, 255, 255, 0.03);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  span {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  lucide-icon {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &:hover lucide-icon {
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
