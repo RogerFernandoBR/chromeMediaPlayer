@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { LayoutService } from 'src/app/services/layout.service';
-import { ISquareBtnInterface, IUploadInterface } from 'src/app/interfaces/_interfaces';
+import { IInputInterface, ISquareBtnInterface, IUploadInterface } from 'src/app/interfaces/_interfaces';
 
 @Component({
   selector: 'app-images',
@@ -8,6 +8,18 @@ import { ISquareBtnInterface, IUploadInterface } from 'src/app/interfaces/_inter
   styleUrls: ['./images.component.scss']
 })
 export class ImagesComponent implements AfterViewInit {
+  inputWidthObj: IInputInterface = {
+    label: "Largura",
+    type: "number",
+    id: "resizeWidth",
+    action: () => this.resizeImage()
+  }
+  inputHeightObj: IInputInterface = {
+    label: "Altura",
+    type: "number",
+    id: "resizeHeight",
+    action: () => this.resizeImage()
+  }
   toolsButtons: Array<ISquareBtnInterface> = [
     {
       label: "Inverter horizontalmente",

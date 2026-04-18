@@ -27,6 +27,7 @@ import { ButtonCloseComponent } from './components/button-close/button-close.com
 import { LangButtonComponent } from './components/lang-button/lang-button.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SquareButtonComponent } from './components/square-button/square-button.component';
+import { InputComponent } from './components/input/input.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { SquareButtonComponent } from './components/square-button/square-button.
     ButtonCloseComponent,
     LangButtonComponent,
     SquareButtonComponent,
+    InputComponent,
   ],
   imports: [
     BrowserModule,

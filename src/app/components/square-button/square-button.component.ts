@@ -11,7 +11,6 @@ import { ISquareBtnInterface } from 'src/app/interfaces/square-btn.interface';
 })
 export class SquareButtonComponent {
     @Input() squareButtonObj!: ISquareBtnInterface;
-    @Output() buttonClicked = new EventEmitter<void>();
 
     onCLick() {
       if (this.squareButtonObj?.action) {

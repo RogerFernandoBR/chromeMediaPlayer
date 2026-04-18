@@ -3,3 +3,4 @@ export * from './icon.interface';
 export * from './button.interface';
 export * from './upload.interface';
 export * from './square-btn.interface';
+export * from './input.interface';

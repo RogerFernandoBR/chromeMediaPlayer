@@ -47,6 +47,7 @@ $themes: (
     @include theme-modal($class, $v50, $v100, $v200, $v300, $v400, $v500);
     @include theme-button($class, $v50, $v100, $v200, $v300, $v400, $v500);
     @include theme-square-button($class, $v40, $v50, $v100, $v200, $v300, $v400, $v500);
+    @include theme-input($class, $v40, $v50, $v100, $v200, $v300, $v400, $v500);
 }
 
 
