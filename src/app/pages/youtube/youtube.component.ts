@@ -121,24 +121,25 @@ export class YoutubeComponent {
       console.log('[Download] Formato selecionado:', selectedFormat?.itag, selectedFormat?.mime_type);
 
       // Iniciar download via proxy passando o tipo desejado
-      const downloadUrl = `${this.proxyBaseUrl}/download?url=${encodeURIComponent(
+      const streamUrlEndpoint = `${this.proxyBaseUrl}/stream-url?url=${encodeURIComponent(
         this.youtubeUrl
       )}&type=${this.downloadType}`;
 
+      const streamRes = await fetch(streamUrlEndpoint);
+      if (!streamRes.ok) {
+        const err = await streamRes.json();
+        throw new Error(err.message || `HTTP ${streamRes.status}`);
+      }
+      const { url: directUrl } = await streamRes.json();
+
       const ext = this.downloadType === 'audio' ? 'm4a' : 'mp4';
-
-      const dlResponse = await fetch(downloadUrl);
-      if (!dlResponse.ok) throw new Error(`Erro no download: HTTP ${dlResponse.status}`);
-
-      const blob = await dlResponse.blob();
-      const blobUrl = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = blobUrl;
+      a.href = directUrl;
       a.download = `${this.videoTitle}.${ext}`;
+      a.target = '_blank';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      URL.revokeObjectURL(blobUrl);
 
       this.isLoading = false;
       this.errorMessage = '';
