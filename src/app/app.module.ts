@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { LucideAngularModule, FlipHorizontal2, FlipVertical2, Scissors, Check, Download, Link2, Link2Off, ImagePlus, Undo, Redo, X } from 'lucide-angular';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
@@ -21,6 +22,7 @@ import { AudioComponent } from './pages/audio/audio.component';
 import { VideoComponent } from './pages/video/video.component';
 import { VideoEditComponent } from './pages/video-edit/video-edit.component';
 import { VideoConverterComponent } from './pages/video-converter/video-converter.component';
+import { YoutubeComponent } from './pages/youtube/youtube.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ButtonCloseComponent } from './components/button-close/button-close.component';
@@ -42,6 +44,7 @@ import { InputComponent } from './components/input/input.component';
     VideoComponent,
     VideoEditComponent,
     VideoConverterComponent,
+    YoutubeComponent,
     ModalComponent,
     ButtonComponent,
     ButtonCloseComponent,
@@ -52,6 +55,7 @@ import { InputComponent } from './components/input/input.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     LucideAngularModule.pick({ FlipHorizontal2, FlipVertical2, Scissors, Check, Download, Link2, Link2Off, ImagePlus, Undo, Redo, X }),
     BrowserAnimationsModule,
     MatTooltipModule,

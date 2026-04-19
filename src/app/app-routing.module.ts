@@ -7,6 +7,7 @@ import { VideoEditComponent } from './pages/video-edit/video-edit.component';
 import { VideoConverterComponent } from './pages/video-converter/video-converter.component';
 import { ImagesComponent } from './pages/images/images.component';
 import { AudioComponent } from './pages/audio/audio.component';
+import { YoutubeComponent } from './pages/youtube/youtube.component';
 
 const routes: Routes = [
   { path: RoutePagesEnum.Root, redirectTo: RoutePagesEnum.Video, pathMatch: 'full'},
@@ -20,6 +21,11 @@ const routes: Routes = [
   { path: RoutePagesEnum.Video, component: VideoComponent},
   { path: RoutePagesEnum.Image, component: ImagesComponent},
   { path: RoutePagesEnum.Audio, component: AudioComponent},
+  { path: RoutePagesEnum.Download, children: [
+      { path: RoutePagesEnum.Root, redirectTo: RoutePagesEnum.Youtube, pathMatch: 'full'},
+      { path: RoutePagesEnum.Youtube, component: YoutubeComponent},
+    ]
+  },
 ]
 
 @NgModule({

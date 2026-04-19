@@ -7,4 +7,6 @@ export enum RoutePagesEnum {
     VideoConverter = 'videoConverter',
     Image = 'image',
     Audio = 'audio',
+    Download = 'download',
+    Youtube = 'youtube',
 }

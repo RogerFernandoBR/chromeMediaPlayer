@@ -37,6 +37,20 @@
         </details>
         <div class="aside-btn" routerLink="/audio" routerLinkActive="selected"><i class="gg-music"></i>Audio</div>
         <div class="aside-btn" routerLink="/image" routerLinkActive="selected"><i class="gg-image"></i>Imagens</div>
+        <details class="collapse" [open]="[routePages.Download, routePages.Youtube].includes(currentRoute)">
+            <summary class="title">
+                <div class="aside-btn" routerLink="/download" routerLinkActive="selected" data-bs-toggle="collapse"><i class="gg-download"></i>Download</div>
+            </summary>
+            <div class="description">
+                <div class="vertical-bar"></div>
+                <div class="container-btn">
+                    <div class="container-btn-item">
+                        <div class="horizontal-bar"></div>
+                        <div class="aside-btn" routerLink="/download/youtube" routerLinkActive="selected"><i class="gg-play-button-o"></i>Youtube</div>
+                    </div>
+                </div>               
+            </div>
+        </details>
     </div>
     <div class="aside-footer">
         © 2023 Roger Carvalho - Todos os direitos reservados. <a href="#" (click)="toggleModal($event)">Saiba mais sobre</a>

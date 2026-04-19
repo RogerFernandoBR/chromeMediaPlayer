@@ -1,0 +1,73 @@
+<h2>Download do YouTube</h2>
+<div class="youtube-container">
+    <div class="input-section">
+        <div class="url-input-wrapper">
+            <input 
+                type="text" 
+                [(ngModel)]="youtubeUrl" 
+                placeholder="Cole a URL do vídeo do YouTube"
+                class="url-input"
+                (keyup.enter)="fetchVideoInfo()">
+            <button 
+                *ngIf="youtubeUrl"
+                class="clear-button"
+                (click)="clearUrl()"
+                matTooltip="Limpar">
+                <lucide-icon name="x" aria-label="Limpar"></lucide-icon>
+            </button>
+        </div>
+        <button 
+            class="search-button"
+            (click)="fetchVideoInfo()"
+            [disabled]="isLoading || !youtubeUrl.trim()">
+            <span *ngIf="!isLoading">Buscar Informações</span>
+            <span *ngIf="isLoading">Carregando...</span>
+        </button>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+    </div>
+
+    <div *ngIf="videoThumbnail && videoTitle" class="video-preview">
+        <div class="thumbnail-wrapper">
+            <img [src]="videoThumbnail" alt="Thumbnail do vídeo" class="thumbnail">
+            <div class="overlay">
+                <div class="title">{{ videoTitle }}</div>
+            </div>
+        </div>
+
+        <div class="download-options">
+            <div class="option-group">
+                <label class="option-label">
+                    <input 
+                        type="radio" 
+                        name="downloadType" 
+                        value="video"
+                        [(ngModel)]="downloadType">
+                    <span class="option-text">Download Vídeo</span>
+                </label>
+                <label class="option-label">
+                    <input 
+                        type="radio" 
+                        name="downloadType" 
+                        value="audio"
+                        [(ngModel)]="downloadType">
+                    <span class="option-text">Download Áudio (M4A)</span>
+                </label>
+            </div>
+
+            <button 
+                class="download-button"
+                (click)="downloadVideo()"
+                [disabled]="isLoading">
+                <span *ngIf="!isLoading">
+                    <lucide-icon name="download" size="20"></lucide-icon>
+                    Baixar {{ downloadType === 'video' ? 'Vídeo' : 'Áudio' }}
+                </span>
+                <span *ngIf="isLoading">Baixando...</span>
+            </button>
+            <p class="download-info">Usando Invidious API (código aberto e sem anúncios)</p>
+        </div>
+    </div>
+</div>
