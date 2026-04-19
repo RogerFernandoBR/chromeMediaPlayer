@@ -97,23 +97,20 @@ export class YoutubeComponent {
       let selectedFormat;
 
       if (this.downloadType === 'video') {
-        // Filtrar formatos com vídeo E áudio juntos (ex: format 18, 22)
-        const combined = formats.filter((f: any) => f.vcodec !== 'none' && f.acodec !== 'none');
+        // Filtrar formatos de vídeo+áudio combinados (mime video/mp4 com altura definida)
+        const combined = formats.filter((f: any) =>
+          f.mime_type?.startsWith('video/mp4') && f.height
+        ).sort((a: any, b: any) => (b.height || 0) - (a.height || 0));
 
-        // Preferir mp4, ordenar por resolução (maior primeiro)
-        const mp4Formats = combined
-          .filter((f: any) => f.ext === 'mp4')
-          .sort((a: any, b: any) => (b.resolution?.replace('p','') || 0) - (a.resolution?.replace('p','') || 0));
-
-        selectedFormat = mp4Formats[0] || combined.sort((a: any, b: any) =>
-          (b.resolution?.replace('p','') || 0) - (a.resolution?.replace('p','') || 0))[0];
+        selectedFormat = combined[0] || formats[0];
 
       } else {
-        // Preferir m4a (aac) pois é compatível com todos os players; evitar opus/webm
-        const audioFormats = formats.filter((f: any) => f.acodec !== 'none' && f.vcodec === 'none');
+        // Preferir audio/mp4 (m4a/aac)
+        const audioFormats = formats.filter((f: any) =>
+          f.mime_type?.startsWith('audio/') && !f.height
+        );
         selectedFormat =
-          audioFormats.find((f: any) => f.ext === 'm4a') ||
-          audioFormats.find((f: any) => f.ext === 'mp3') ||
+          audioFormats.find((f: any) => f.mime_type?.includes('mp4')) ||
           audioFormats[0];
       }
 
@@ -121,20 +118,27 @@ export class YoutubeComponent {
         throw new Error(`Nenhum formato de ${this.downloadType} disponível`);
       }
 
-      console.log('[Download] Formato selecionado:', selectedFormat.format_id);
+      console.log('[Download] Formato selecionado:', selectedFormat?.itag, selectedFormat?.mime_type);
 
       // Iniciar download via proxy passando o tipo desejado
       const downloadUrl = `${this.proxyBaseUrl}/download?url=${encodeURIComponent(
         this.youtubeUrl
       )}&type=${this.downloadType}`;
 
-      const ext = this.downloadType === 'audio' ? 'mp3' : 'mp4';
+      const ext = this.downloadType === 'audio' ? 'm4a' : 'mp4';
+
+      const dlResponse = await fetch(downloadUrl);
+      if (!dlResponse.ok) throw new Error(`Erro no download: HTTP ${dlResponse.status}`);
+
+      const blob = await dlResponse.blob();
+      const blobUrl = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = downloadUrl;
+      a.href = blobUrl;
       a.download = `${this.videoTitle}.${ext}`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
+      URL.revokeObjectURL(blobUrl);
 
       this.isLoading = false;
       this.errorMessage = '';
