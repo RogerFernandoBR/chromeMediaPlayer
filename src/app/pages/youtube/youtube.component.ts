@@ -15,7 +15,7 @@ export class YoutubeComponent {
   videoThumbnail: string = '';
   downloadType: 'video' | 'audio' = 'video';
   videoId: string = '';
-  private proxyBaseUrl = 'http://localhost:3001'; // URL do proxy
+  private proxyBaseUrl = 'https://youtubeproxy-production.up.railway.app'; // URL do proxy
 
   constructor(private layoutService: LayoutService) {
     this.layoutService.useDarkMode.subscribe((x) => {
