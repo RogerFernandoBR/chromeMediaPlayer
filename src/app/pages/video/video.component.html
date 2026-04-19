@@ -1,15 +1,28 @@
-<div class="main-container">  
-    <div class="player file-player">
-      <video 
-        [src]="prev_url" 
-        style="width:100%" 
-        controls></video>
+<h2>Visualizador de Vídeos</h2>
+<div class="video-container">
+    <div class="player-wrapper">
+        <div class="player file-player">
+            <video 
+                *ngIf="!showUpload"
+                [src]="prev_url" 
+                controls
+                class="video-player"></video>
+            <div 
+                *ngIf="showUpload"
+                class="upload-overlay"
+                (click)="triggerUpload()" 
+                (dragover)="onDragOver($event)" 
+                (drop)="onDrop($event)">
+                <app-upload [uploadObj]="uploadObj"></app-upload>
+            </div>
+            <button 
+                *ngIf="!showUpload" 
+                class="remove-button" 
+                (click)="removeVideo()"
+                matTooltip="Remover vídeo">
+                <lucide-icon name="x" aria-label="Remover vídeo"></lucide-icon>
+            </button>
+        </div>
     </div>
-    
-    <div class='file file--upload'>
-        <label for='input-file'>
-            <app-upload [uploadObj]="uploadObj" (click)="triggerUpload()" (dragover)="onDragOver($event)" (drop)="onDrop($event)"></app-upload>
-        </label>
-        <input id="input-file" type="file" accept="video/*" (change)="onSelectedFile($event)" style="display: none;">
-    </div>
+    <input id="input-file" type="file" accept="video/*" (change)="onSelectedFile($event)" style="display: none;">
 </div>

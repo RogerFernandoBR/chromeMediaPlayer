@@ -8,17 +8,24 @@ import { IInputInterface, ISquareBtnInterface, IUploadInterface } from 'src/app/
   styleUrls: ['./images.component.scss']
 })
 export class ImagesComponent implements AfterViewInit {
-  inputWidthObj: IInputInterface = {
-    label: "Largura",
-    type: "number",
-    id: "resizeWidth",
-    action: () => this.resizeImage()
+  get inputWidthObj(): IInputInterface {
+    return {
+      label: "Largura",
+      type: "number",
+      id: "resizeWidth",
+      action: () => this.resizeImage(),
+      disabled: !this.imageLoaded
+    }
   }
-  inputHeightObj: IInputInterface = {
-    label: "Altura",
-    type: "number",
-    id: "resizeHeight",
-    action: () => this.resizeImage()
+  
+  get inputHeightObj(): IInputInterface {
+    return {
+      label: "Altura",
+      type: "number",
+      id: "resizeHeight",
+      action: () => this.resizeImage(),
+      disabled: !this.imageLoaded
+    }
   }
   
   toolsButtons: Array<ISquareBtnInterface> = [

@@ -3,4 +3,5 @@ export interface IInputInterface {
     type: string,
     id?: string,
     action: () => void,
+    disabled?: boolean,
 }

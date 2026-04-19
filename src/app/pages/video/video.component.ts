@@ -9,6 +9,7 @@ import { IUploadInterface } from 'src/app/interfaces/_interfaces';
 })
 export class VideoComponent {
   prev_url : any;
+  showUpload = true;
 
   uploadObj: IUploadInterface = {
     text: "Arraste sua midia aqui ou clique para procurar!",
@@ -24,12 +25,20 @@ export class VideoComponent {
 
   onSelectedFile(ev : any) {
     let file = ev.target.files[0];
-    var URL = window.URL;
-    this.prev_url = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file));
+    if (file) {
+      var URL = window.URL;
+      this.prev_url = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file));
+      this.showUpload = false;
+    }
+  }
+
+  removeVideo() {
+    this.prev_url = null;
+    this.showUpload = true;
   }
 
   triggerUpload() {
-    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+    const fileInput = document.getElementById('input-file') as HTMLInputElement;
     fileInput?.click();
   }
   
@@ -49,6 +58,7 @@ export class VideoComponent {
       video.muted = true;
       video.src = URL.createObjectURL(file);  
       this.prev_url = this.sanitizer.bypassSecurityTrustUrl(video.src);
+      this.showUpload = false;
     }
   }
 }

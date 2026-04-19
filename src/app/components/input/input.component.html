@@ -4,5 +4,6 @@
         [type]="inputObj.type" 
         [id]="inputObj.id ?? ''" 
         (change)="onChange()"
+        [disabled]="inputObj.disabled ?? false"
         [placeholder]="inputObj.label || ''">
 </div>
