@@ -65,42 +65,27 @@ export class YoutubeComponent {
     this.downloadProgress = '';
 
     try {
-      // 1. Obter URLs decifradas do proxy
-      this.downloadProgress = '🔍 Obtendo URLs de stream...';
-      const streamRes = await fetch(
-        `${this.proxyBaseUrl}/stream-url?url=${encodeURIComponent(this.youtubeUrl)}&type=${this.downloadType}`
-      );
-      if (!streamRes.ok) {
-        const err = await streamRes.json().catch(() => ({}));
-        throw new Error(err.message || `HTTP ${streamRes.status}`);
-      }
-      const streamData = await streamRes.json();
-
+      const encodedUrl = encodeURIComponent(this.youtubeUrl);
       if (this.downloadType === 'audio') {
-        // Áudio: browser baixa direto da CDN
+        // Railway faz proxy do áudio
         this.downloadProgress = '⬇️ Baixando áudio...';
-        const audioRes = await fetch(streamData.url);
-        if (!audioRes.ok) throw new Error(`CDN áudio: ${audioRes.status}`);
-        const blob = await audioRes.blob();
-        this.triggerDownload(blob, `${streamData.title || this.videoTitle}.m4a`);
+        const res = await fetch(`${this.proxyBaseUrl}/audio?url=${encodedUrl}`);
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.error || `HTTP ${res.status}`);
+        }
+        const blob = await res.blob();
+        this.triggerDownload(blob, `${this.videoTitle || 'audio'}.m4a`);
       } else {
-        // Vídeo: baixar video+audio separados e mesclar com ffmpeg.wasm
-        this.downloadProgress = `⬇️ Baixando vídeo (${streamData.height}p) e áudio...`;
-        const [videoRes, audioRes] = await Promise.all([
-          fetch(streamData.videoUrl),
-          fetch(streamData.audioUrl)
-        ]);
-        if (!videoRes.ok) throw new Error(`CDN vídeo: ${videoRes.status}`);
-        if (!audioRes.ok) throw new Error(`CDN áudio: ${audioRes.status}`);
-
-        const [videoBlob, audioBlob] = await Promise.all([
-          videoRes.blob(),
-          audioRes.blob()
-        ]);
-
-        this.downloadProgress = '🔧 Mesclando vídeo e áudio...';
-        const mergedBlob = await this.mergeWithFfmpeg(videoBlob, audioBlob);
-        this.triggerDownload(mergedBlob, `${streamData.title || this.videoTitle}.mp4`);
+        // Railway faz proxy do vídeo (até 1080p)
+        this.downloadProgress = '⬇️ Baixando vídeo (até 1080p)...';
+        const res = await fetch(`${this.proxyBaseUrl}/video?url=${encodedUrl}`);
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.error || `HTTP ${res.status}`);
+        }
+        const blob = await res.blob();
+        this.triggerDownload(blob, `${this.videoTitle || 'video'}.mp4`);
       }
 
       this.downloadProgress = '✅ Download concluído!';
@@ -112,25 +97,6 @@ export class YoutubeComponent {
     } finally {
       this.isLoading = false;
     }
-  }
-
-  private async mergeWithFfmpeg(videoBlob: Blob, audioBlob: Blob): Promise<Blob> {
-    const { FFmpeg } = await import('@ffmpeg/ffmpeg');
-    const { fetchFile, toBlobURL } = await import('@ffmpeg/util');
-
-    const ffmpeg = new FFmpeg();
-    const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd';
-    await ffmpeg.load({
-      coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
-      wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
-    });
-
-    await ffmpeg.writeFile('video.mp4', await fetchFile(videoBlob));
-    await ffmpeg.writeFile('audio.m4a', await fetchFile(audioBlob));
-    await ffmpeg.exec(['-i', 'video.mp4', '-i', 'audio.m4a', '-c', 'copy', 'output.mp4']);
-    const data = await ffmpeg.readFile('output.mp4');
-    const buffer = (data as Uint8Array).buffer.slice(0) as ArrayBuffer;
-    return new Blob([buffer], { type: 'video/mp4' });
   }
 
   clearUrl() {
