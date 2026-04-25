@@ -14,13 +14,11 @@ export class YoutubeComponent {
   videoTitle: string = '';
   videoThumbnail: string = '';
   downloadType: 'video' | 'audio' = 'video';
-  videoId: string = '';
-  private proxyBaseUrl = 'https://youtubeproxy-production.up.railway.app'; // URL do proxy
+  downloadProgress: string = '';
+  private proxyBaseUrl = 'https://youtubeproxy-production.up.railway.app';
 
   constructor(private layoutService: LayoutService) {
-    this.layoutService.useDarkMode.subscribe((x) => {
-      this.useDarkMode = x;
-    })
+    this.layoutService.useDarkMode.subscribe((x) => (this.useDarkMode = x));
   }
 
   extractVideoId(url: string): string | null {
@@ -28,12 +26,9 @@ export class YoutubeComponent {
       /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
       /^([a-zA-Z0-9_-]{11})$/
     ];
-
     for (let pattern of regexPatterns) {
       const match = url.match(pattern);
-      if (match && match[1]) {
-        return match[1];
-      }
+      if (match && match[1]) return match[1];
     }
     return null;
   }
@@ -43,34 +38,19 @@ export class YoutubeComponent {
       this.errorMessage = 'Por favor, insira uma URL do YouTube';
       return;
     }
-
     this.isLoading = true;
     this.errorMessage = '';
-
     try {
-      console.log(`[FetchVideoInfo] Buscando info: ${this.youtubeUrl}`);
-      
       const response = await fetch(
         `${this.proxyBaseUrl}/info?url=${encodeURIComponent(this.youtubeUrl)}`
       );
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
-      console.log('[FetchVideoInfo] Info obtida:', data.title);
-
       this.videoTitle = data.title || 'Vídeo do YouTube';
       this.videoThumbnail = data.thumbnail || '';
-      
-      // Armazenar formatos disponíveis para download
-      (this as any).availableFormats = data.formats;
-
-      this.isLoading = false;
     } catch (error: any) {
-      console.error('[FetchVideoInfo] Erro:', error);
       this.errorMessage = `❌ Erro ao buscar vídeo: ${error.message}`;
+    } finally {
       this.isLoading = false;
     }
   }
@@ -80,87 +60,95 @@ export class YoutubeComponent {
       this.errorMessage = 'Por favor, insira uma URL do YouTube';
       return;
     }
-
     this.isLoading = true;
     this.errorMessage = '';
+    this.downloadProgress = '';
 
     try {
-      console.log('[Download] Iniciando download');
-
-      // Selecionar o melhor formato baseado no tipo
-      const formats = (this as any).availableFormats || [];
-      
-      if (formats.length === 0) {
-        throw new Error('Nenhum formato disponível');
-      }
-
-      let selectedFormat;
-
-      if (this.downloadType === 'video') {
-        // Filtrar formatos de vídeo+áudio combinados (mime video/mp4 com altura definida)
-        const combined = formats.filter((f: any) =>
-          f.mime_type?.startsWith('video/mp4') && f.height
-        ).sort((a: any, b: any) => (b.height || 0) - (a.height || 0));
-
-        selectedFormat = combined[0] || formats[0];
-
-      } else {
-        // Preferir audio/mp4 (m4a/aac)
-        const audioFormats = formats.filter((f: any) =>
-          f.mime_type?.startsWith('audio/') && !f.height
-        );
-        selectedFormat =
-          audioFormats.find((f: any) => f.mime_type?.includes('mp4')) ||
-          audioFormats[0];
-      }
-
-      if (!selectedFormat) {
-        throw new Error(`Nenhum formato de ${this.downloadType} disponível`);
-      }
-
-      console.log('[Download] Formato selecionado:', selectedFormat?.itag, selectedFormat?.mime_type);
-
-      // Pedir ao proxy a URL decifrada e baixar direto da CDN do YouTube (sem passar pelo servidor)
-      const streamUrlRes = await fetch(
+      // 1. Obter URLs decifradas do proxy
+      this.downloadProgress = '🔍 Obtendo URLs de stream...';
+      const streamRes = await fetch(
         `${this.proxyBaseUrl}/stream-url?url=${encodeURIComponent(this.youtubeUrl)}&type=${this.downloadType}`
       );
-      if (!streamUrlRes.ok) {
-        const err = await streamUrlRes.json().catch(() => ({ message: `HTTP ${streamUrlRes.status}` }));
-        throw new Error(err.message || `HTTP ${streamUrlRes.status}`);
+      if (!streamRes.ok) {
+        const err = await streamRes.json().catch(() => ({}));
+        throw new Error(err.message || `HTTP ${streamRes.status}`);
       }
-      const { url: cdnUrl, ext, title } = await streamUrlRes.json();
-      const fileExt = ext || (this.downloadType === 'audio' ? 'm4a' : 'mp4');
-      const fileName = title || this.videoTitle;
+      const streamData = await streamRes.json();
 
-      // Browser faz o fetch direto da CDN com o IP do usuário (sem 403)
-      const fileRes = await fetch(cdnUrl);
-      if (!fileRes.ok) throw new Error(`CDN respondeu ${fileRes.status}`);
-      const blob = await fileRes.blob();
-      const blobUrl = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = blobUrl;
-      a.download = `${fileName}.${fileExt}`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(blobUrl);
+      if (this.downloadType === 'audio') {
+        // Áudio: browser baixa direto da CDN
+        this.downloadProgress = '⬇️ Baixando áudio...';
+        const audioRes = await fetch(streamData.url);
+        if (!audioRes.ok) throw new Error(`CDN áudio: ${audioRes.status}`);
+        const blob = await audioRes.blob();
+        this.triggerDownload(blob, `${streamData.title || this.videoTitle}.m4a`);
+      } else {
+        // Vídeo: baixar video+audio separados e mesclar com ffmpeg.wasm
+        this.downloadProgress = `⬇️ Baixando vídeo (${streamData.height}p) e áudio...`;
+        const [videoRes, audioRes] = await Promise.all([
+          fetch(streamData.videoUrl),
+          fetch(streamData.audioUrl)
+        ]);
+        if (!videoRes.ok) throw new Error(`CDN vídeo: ${videoRes.status}`);
+        if (!audioRes.ok) throw new Error(`CDN áudio: ${audioRes.status}`);
 
-      this.isLoading = false;
-      this.errorMessage = '';
-      console.log('[Download] Download iniciado');
+        const [videoBlob, audioBlob] = await Promise.all([
+          videoRes.blob(),
+          audioRes.blob()
+        ]);
+
+        this.downloadProgress = '🔧 Mesclando vídeo e áudio...';
+        const mergedBlob = await this.mergeWithFfmpeg(videoBlob, audioBlob);
+        this.triggerDownload(mergedBlob, `${streamData.title || this.videoTitle}.mp4`);
+      }
+
+      this.downloadProgress = '✅ Download concluído!';
+      setTimeout(() => (this.downloadProgress = ''), 3000);
     } catch (error: any) {
       console.error('[Download] Erro:', error);
       this.errorMessage = `❌ Erro ao fazer download: ${error.message}`;
+      this.downloadProgress = '';
+    } finally {
       this.isLoading = false;
     }
+  }
+
+  private async mergeWithFfmpeg(videoBlob: Blob, audioBlob: Blob): Promise<Blob> {
+    const { FFmpeg } = await import('@ffmpeg/ffmpeg');
+    const { fetchFile, toBlobURL } = await import('@ffmpeg/util');
+
+    const ffmpeg = new FFmpeg();
+    const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd';
+    await ffmpeg.load({
+      coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+      wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+    });
+
+    await ffmpeg.writeFile('video.mp4', await fetchFile(videoBlob));
+    await ffmpeg.writeFile('audio.m4a', await fetchFile(audioBlob));
+    await ffmpeg.exec(['-i', 'video.mp4', '-i', 'audio.m4a', '-c', 'copy', 'output.mp4']);
+    const data = await ffmpeg.readFile('output.mp4');
+    const buffer = (data as Uint8Array).buffer.slice(0) as ArrayBuffer;
+    return new Blob([buffer], { type: 'video/mp4' });
   }
 
   clearUrl() {
     this.youtubeUrl = '';
     this.videoTitle = '';
     this.videoThumbnail = '';
-    this.videoId = '';
     this.errorMessage = '';
+    this.downloadProgress = '';
+  }
+
+  private triggerDownload(blob: Blob, filename: string) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 }
-

@@ -65,9 +65,9 @@
                     <lucide-icon name="download" size="20"></lucide-icon>
                     Baixar {{ downloadType === 'video' ? 'Vídeo' : 'Áudio' }}
                 </span>
-                <span *ngIf="isLoading">Baixando...</span>
+                <span *ngIf="isLoading">{{ downloadProgress || 'Processando...' }}</span>
             </button>
-            <p class="download-info">Usando Invidious API (código aberto e sem anúncios)</p>
+            <p class="download-info">Vídeo em até 1080p com áudio mesclado</p>
         </div>
     </div>
 </div>
