@@ -120,20 +120,26 @@ export class YoutubeComponent {
 
       console.log('[Download] Formato selecionado:', selectedFormat?.itag, selectedFormat?.mime_type);
 
-      // Iniciar download via proxy passando o tipo desejado
-      const downloadUrl = `${this.proxyBaseUrl}/download?url=${encodeURIComponent(this.youtubeUrl)}&type=${this.downloadType}`;
-      const ext = this.downloadType === 'audio' ? 'm4a' : 'mp4';
-
-      const fileRes = await fetch(downloadUrl);
-      if (!fileRes.ok) {
-        const err = await fileRes.json().catch(() => ({ message: `HTTP ${fileRes.status}` }));
-        throw new Error(err.message || `HTTP ${fileRes.status}`);
+      // Pedir ao proxy a URL decifrada e baixar direto da CDN do YouTube (sem passar pelo servidor)
+      const streamUrlRes = await fetch(
+        `${this.proxyBaseUrl}/stream-url?url=${encodeURIComponent(this.youtubeUrl)}&type=${this.downloadType}`
+      );
+      if (!streamUrlRes.ok) {
+        const err = await streamUrlRes.json().catch(() => ({ message: `HTTP ${streamUrlRes.status}` }));
+        throw new Error(err.message || `HTTP ${streamUrlRes.status}`);
       }
+      const { url: cdnUrl, ext, title } = await streamUrlRes.json();
+      const fileExt = ext || (this.downloadType === 'audio' ? 'm4a' : 'mp4');
+      const fileName = title || this.videoTitle;
+
+      // Browser faz o fetch direto da CDN com o IP do usuário (sem 403)
+      const fileRes = await fetch(cdnUrl);
+      if (!fileRes.ok) throw new Error(`CDN respondeu ${fileRes.status}`);
       const blob = await fileRes.blob();
       const blobUrl = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = blobUrl;
-      a.download = `${this.videoTitle}.${ext}`;
+      a.download = `${fileName}.${fileExt}`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
